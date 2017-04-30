@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 29, 2017 9:34:34 PM by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.edu.udea.prestapp.dto.Sancion" table="sancion">
+        <id name="id" type="int">
+            <column name="ID" />
+            <generator class="assigned" />
+        </id>
+        <property name="idUsuario" type="int">
+            <column name="IDUSUARIO" />
+        </property>
+        <property name="tipoSancion" type="java.lang.String">
+            <column name="TIPOSANCION" />
+        </property>
+        <property name="inicioSancion" type="java.util.Date">
+            <column name="INICIOSANCION" />
+        </property>
+        <property name="finSancion" type="java.util.Date">
+            <column name="FINSANCION" />
+        </property>
+    </class>
+</hibernate-mapping>
