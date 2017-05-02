@@ -4,7 +4,7 @@
 <!-- Generated Apr 29, 2017 9:34:34 PM by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
     <class name="com.edu.udea.prestapp.dto.Prestamo" table="prestamo">
-	    <composite-id name="id" class="com.edu.udea.prestapp.prestamoID">
+	    <composite-id name="id">
 	    	<key-property name="idObjeto" type="int">	
 	    		<column name="idObjeto"></column>
 	    	</key-property>

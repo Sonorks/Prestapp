@@ -23,6 +23,7 @@
 				<value>com/edu/udea/prestapp/dto/Prestamo.hbm.xml</value>
 				<value>com/edu/udea/prestapp/dto/Usuario.hbm.xml</value>
 				<value>com/edu/udea/prestapp/dto/Sancion.hbm.xml</value>
+				<value>com/edu/udea/prestapp/dto/Reserva.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

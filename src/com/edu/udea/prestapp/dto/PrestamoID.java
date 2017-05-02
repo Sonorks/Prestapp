@@ -1,6 +1,8 @@
 package com.edu.udea.prestapp.dto;
 
-public class PrestamoID {
+import java.io.Serializable;
+
+public class PrestamoID implements Serializable{
 
 	private int idObjeto;
 	private int idUsuario;
