@@ -23,7 +23,7 @@ public class UsuarioDaoImp {
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-	
+	/*
 	//Método para loguear al usuario
 	public void doLogin(String usuario, String contrasena) throws ExceptionController{
 		
@@ -40,7 +40,7 @@ public class UsuarioDaoImp {
 		if(!user.getContrasena().equals(contrasena)) {
 			throw new ExceptionController("Credenciales incorrectas");
 		}
-	}
+	}*/
 	
 	//Método que devuelve el usuario segun su nombre de usuario
 	public Usuario getUsuario(String usuario) throws ExceptionController {
@@ -61,33 +61,16 @@ public class UsuarioDaoImp {
 	}
 
 	//Método con el que él usuario puede restablecer la contraseña 
-	public void restablecerContrasena(String usuario, String correo, String contrasenaActual, String contrasenaNueva) throws ExceptionController{
-		if(usuario.isEmpty() || usuario == null) { //validando que se reciba un usuario
-			throw new ExceptionController("El usuario no puede estar vacía");
-		}
-		if(contrasenaActual.isEmpty() || contrasenaActual == null) { //validando que se reciba una contraseña
-			throw new ExceptionController("Digite la contraseña actual");
-		}
-		if(contrasenaNueva.isEmpty() || contrasenaNueva == null) { //validando que se reciba una contraseña
-			throw new ExceptionController("Digite la nueva contraseña");
-		}
-		Usuario user = getUsuario(usuario); //se obtiene el usuario por medio del getUsuario
-		if(user == null) {
-			throw new ExceptionController("Usuario o contraseña incorrecta");
-		}
-		if(user.getContrasena().equals(contrasenaActual) && user.getCorreo().equals(correo)) {
-			user.setContrasena(contrasenaNueva);
-			Session session = null;
-			try{
-				session = sessionFactory.getCurrentSession(); //para conectarse con el BEAN definido en SpringConf.xml
-				session.update(user);
-			}catch (HibernateException e) {
-				throw new ExceptionController("Error cambiando contraseña",e);
-			}finally {
-				session.close();
-			}
-		}else{
-			throw new ExceptionController("Credenciales incorrectas");
+	public void restablecerContrasena(String contrasenaNueva, Usuario user) throws ExceptionController{
+		user.setContrasena(contrasenaNueva);
+		Session session = null;
+		try{
+			session = sessionFactory.getCurrentSession(); //para conectarse con el BEAN definido en SpringConf.xml
+			session.update(user);
+		}catch (HibernateException e) {
+			throw new ExceptionController("Error cambiando contraseña",e);
+		}finally {
+			session.close();
 		}
 	}
 	

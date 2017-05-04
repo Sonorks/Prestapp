@@ -56,8 +56,14 @@ public class ObjetoDaoImp implements InterfaceObjetoDao {
 		if(tipoCambio == 1) {
 			objeto.setDisponibilidad(true);
 		}
-		else if (tipoCambio == 0) {
+		else if (tipoCambio == 2) {
 			objeto.setDisponibilidad(false);
+		}
+		else if (tipoCambio == 3) {
+			objeto.setReservado(true);
+		}
+		else if(tipoCambio == 4) {
+			objeto.setReservado(false);
 		}
 		try {
 			session = sessionFactory.getCurrentSession(); //para conectarse con el BEAN definido en SpringConf.xml
