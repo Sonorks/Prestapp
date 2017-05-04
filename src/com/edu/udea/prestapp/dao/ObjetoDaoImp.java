@@ -24,7 +24,7 @@ public class ObjetoDaoImp implements InterfaceObjetoDao {
 		this.sessionFactory = sessionFactory;
 	}
 	public List<Objeto> getObjetos() throws ExceptionController{
-		List<Objeto> lista = new ArrayList<Objeto>();
+		List<Objeto> lista = new ArrayList<Objeto>();//Lista en donde se guardaran todos los objetos de la bd
 		Session session = null;
 		try {
 			session = sessionFactory.getCurrentSession(); //para conectarse con el BEAN definido en SpringConf.xml
@@ -37,12 +37,12 @@ public class ObjetoDaoImp implements InterfaceObjetoDao {
 		return lista;
 	}
 	public List<Objeto> getObjetosDisponibles() throws ExceptionController{
-		List<Objeto> lista = new ArrayList<Objeto>();
+		List<Objeto> lista = new ArrayList<Objeto>(); //Lista en donde se guardaran los objetos disponibles
 		Session session = null;
 		try {
 			session = sessionFactory.getCurrentSession(); //para conectarse con el BEAN definido en SpringConf.xml
-			Criteria criteria = session.createCriteria(Objeto.class);
-			criteria.add( Restrictions.eq("disponibilidad", new Integer(0) ) ); //retorna la busqueda en la tabla seleccionada
+			Criteria criteria = session.createCriteria(Objeto.class);//retorna la busqueda en la tabla seleccionada
+			criteria.add( Restrictions.eq("disponibilidad", new Integer(0) ) ); //Se le añade la restriccion de que la disponibilidad sea 0, es decir, esté disponible
 			lista = criteria.list();
 		}catch(HibernateException e){
 			throw new ExceptionController("Error consultando disponibilidad",e);
@@ -52,8 +52,8 @@ public class ObjetoDaoImp implements InterfaceObjetoDao {
 	}
 	public String modificarDisponibilidad (int id, int tipoCambio) throws ExceptionController{
 		Session session = null;
-		Objeto objeto = getObjeto(id);
-		if(tipoCambio == 1) {
+		Objeto objeto = getObjeto(id);//Objeto a modificar
+		if(tipoCambio == 1) {//Si el tipoCambio es 1 el objeto será disponible, si es 0 no estará disponible
 			objeto.setDisponibilidad(true);
 		}
 		else if (tipoCambio == 0) {
@@ -61,7 +61,7 @@ public class ObjetoDaoImp implements InterfaceObjetoDao {
 		}
 		try {
 			session = sessionFactory.getCurrentSession(); //para conectarse con el BEAN definido en SpringConf.xml
-			session.update(objeto);
+			session.update(objeto);//Actualiza el objeto en la bd
 			return "Objeto actualizado";
 		}catch(HibernateException e){
 			throw new ExceptionController("Error consultando disponibilidad",e);
@@ -69,10 +69,10 @@ public class ObjetoDaoImp implements InterfaceObjetoDao {
 	}
 	public String eliminarObjeto(int idObjeto) throws ExceptionController{
 		Session session = null;
-		Objeto objeto = getObjeto(idObjeto);
+		Objeto objeto = getObjeto(idObjeto);//Objeto a eliminar
 		try {
 			session = sessionFactory.getCurrentSession(); //para conectarse con el BEAN definido en SpringConf.xml
-			session.delete(objeto);
+			session.delete(objeto);//Se elimina el objeto de la bd
 			return "Objeto eliminado";
 		}catch(HibernateException e){
 			throw new ExceptionController("Error consultando disponibilidad",e);

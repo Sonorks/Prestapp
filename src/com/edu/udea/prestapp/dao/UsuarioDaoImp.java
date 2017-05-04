@@ -75,7 +75,7 @@ public class UsuarioDaoImp {
 		if(user == null) {
 			throw new ExceptionController("Usuario o contraseña incorrecta");
 		}
-		if(user.getContrasena().equals(contrasenaActual) && user.getCorreo().equals(correo)) {
+		if(user.getContrasena().equals(contrasenaActual) && user.getCorreo().equals(correo)) {//Se verifican la contraseña y el correo
 			user.setContrasena(contrasenaNueva);
 			Session session = null;
 			try{
@@ -93,33 +93,33 @@ public class UsuarioDaoImp {
 	
 	//Método para registrar un usuario nuevo en la BD
 	public void registrarUsuario(int id, String nombres, String apellidos, String correo, String usuario, String contrasena, String tipoId, String telefono, boolean admin) throws ExceptionController{
-		if(nombres.isEmpty() || nombres == null) {
+		if(nombres.isEmpty() || nombres == null) {//validando que se reciban los nombres
 			throw new ExceptionController("El nombre no puede estar vacio");
 		}
-		if(apellidos.isEmpty() || apellidos == null) {
+		if(apellidos.isEmpty() || apellidos == null) {//validando que se reciban los apellidos
 			throw new ExceptionController("El apellido no puede estar vacio");
 		}
-		if(correo.isEmpty() || correo == null) {
+		if(correo.isEmpty() || correo == null) {//validando que se reciba el correo
 			throw new ExceptionController("El email no puede estar vacio");
 		}
-		if(usuario.isEmpty() || usuario == null) {
+		if(usuario.isEmpty() || usuario == null) {//validando que se reciba el usuario
 			throw new ExceptionController("El usuario no puede estar vacio");
 		}
-		if(contrasena.isEmpty() || contrasena == null) {
+		if(contrasena.isEmpty() || contrasena == null) {//validando que se reciba la contraseña
 			throw new ExceptionController("La contrasena no puede estar vacio");
 		}
-		if(tipoId.isEmpty() || tipoId == null) {
+		if(tipoId.isEmpty() || tipoId == null) {//validando que se reciba el tipo de identificacion
 			throw new ExceptionController("Elija el tipo de identificación");
 		}
-		if(telefono.isEmpty() || telefono == null) {
+		if(telefono.isEmpty() || telefono == null) {//validando que se reciba el telefono
 			throw new ExceptionController("El telefono no puede estar vacio");
 		}
-		if(getUsuario(usuario)!=null){
+		if(getUsuario(usuario)!=null){//validando que se el usuario no esté repetido
 			if(getUsuario(usuario).getId()==id || getUsuario(usuario).getCorreo()==correo){
 				throw new ExceptionController("El usuario ya existe");
 			}
 		}else{
-			Usuario user = new Usuario();
+			Usuario user = new Usuario();//Se procede a ingresar los datos del usuario nuevo
 			user.setId(id);
 			user.setNombres(nombres);
 			user.setApellidos(apellidos);
@@ -143,19 +143,19 @@ public class UsuarioDaoImp {
 	
 	//Método para modificar un usuario existente
 	public void modificarUsuario(int id, String usuario, String nombres, String apellidos, String telefono, String correo) throws ExceptionController{
-		if(nombres.isEmpty() || nombres == null) {
+		if(nombres.isEmpty() || nombres == null) {//validando que se reciban los nombres
 			throw new ExceptionController("El nombre no puede estar vacio");
 		}
-		if(apellidos.isEmpty() || apellidos == null) {
+		if(apellidos.isEmpty() || apellidos == null) {//validando que se reciban los apellidos
 			throw new ExceptionController("El apellido no puede estar vacio");
 		}
-		if(usuario.isEmpty() || usuario == null) {
+		if(usuario.isEmpty() || usuario == null) {//validando que se reciba el usuario
 			throw new ExceptionController("El usuario no puede estar vacio");
 		}
-		if(correo.isEmpty() || correo == null) {
+		if(correo.isEmpty() || correo == null) {//validando que se reciba el correo
 			throw new ExceptionController("El email no puede estar vacio");
 		}
-		if(telefono.isEmpty() || telefono == null) {
+		if(telefono.isEmpty() || telefono == null) {//validando que se reciba el telefono
 			throw new ExceptionController("El telefono no puede estar vacio");
 		}
 		Usuario user = getUsuario(usuario); //se obtiene el usuario por medio del getUsuario
@@ -181,12 +181,12 @@ public class UsuarioDaoImp {
 	
 	//Método para eliminar un usuario existente con parametros de id y nombre de usuario
 	public String eliminarUsuario(int id, String usuario) throws ExceptionController{
-		if(usuario.isEmpty() || usuario == null) {
+		if(usuario.isEmpty() || usuario == null) {//validando que se reciba el usuario
 			throw new ExceptionController("El usuario no puede estar vacio");
 		}
 		Usuario user = getUsuario(usuario); //se obtiene el usuario por medio del getUsuario
 		Session session = null;
-		if(user.getId()==id){
+		if(user.getId()==id){//Se verifica la identificacion del usuario
 			try{
 				session = sessionFactory.getCurrentSession();//Se obtiene la sesion
 				session.delete(usuario);
@@ -204,7 +204,7 @@ public class UsuarioDaoImp {
 	
 	//Método que devuelve una lista de usuarios
 	public List<Usuario> getUsuarios() throws ExceptionController{
-		List<Usuario> lista = new ArrayList<Usuario>();
+		List<Usuario> lista = new ArrayList<Usuario>();//Lista en donde se guardaran los usuarios de la bd
 		Session session = null;
 		try {
 			session = sessionFactory.getCurrentSession(); //para conectarse con el BEAN definido en SpringConf.xml

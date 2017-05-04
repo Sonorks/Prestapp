@@ -26,19 +26,19 @@ public class SancionDaoImp {
 	}
 	
 	public void sancionarUsuario(String usuario, String tipoSancion, Date inicioSancion, Date finSancion) throws ExceptionController{
-		Date date = new Date(2016,1,1);
-		if(tipoSancion.isEmpty() || tipoSancion == null) {
+		Date date = new Date(2017,1,1);//Fecha para validaciones
+		if(tipoSancion.isEmpty() || tipoSancion == null) {//validando que se reciba el tipo de sancion
 			throw new ExceptionController("El tipo de sanción no puede estar vacio");
 		}
-		if(inicioSancion.before(date) || inicioSancion == null) {
+		if(inicioSancion.before(date) || inicioSancion == null) {//validando que la fecha de sancion sea de este año
 			throw new ExceptionController("La fecha inicial no puede estar vacia");
 		}
-		if(finSancion == null || finSancion.before(inicioSancion)) {
+		if(finSancion == null || finSancion.before(inicioSancion)) {//validando que la fecha sea despues de la fecha de inicio de la sancion
 			throw new ExceptionController("La fecha final no puede estar vacio");
 		}
 		UsuarioDaoImp user = new UsuarioDaoImp(); //se obtiene el usuario por medio del getUsuario
-		if(user.getUsuario(usuario)!=null){
-			Usuario sancionado = user.getUsuario(usuario);
+		if(user.getUsuario(usuario)!=null){//Si el usuario existe->
+			Usuario sancionado = user.getUsuario(usuario); //Variable para guardar el usuario a sancionar
 			Session session = null;
 			try{
 				session = sessionFactory.getCurrentSession(); //para conectarse con el BEAN definido en SpringConf.xml
@@ -53,12 +53,12 @@ public class SancionDaoImp {
 		}
 	}
 	public void eliminarSancion(String usuario) throws ExceptionController{
-		if(usuario.isEmpty() || usuario == null) {
+		if(usuario.isEmpty() || usuario == null) {//validando que se reciba el usuario
 			throw new ExceptionController("El usuario no puede estar vacio");
 		}
 		UsuarioDaoImp user = new UsuarioDaoImp(); //se obtiene el usuario por medio del getUsuario
-		if(user.getUsuario(usuario)!=null){
-			Usuario sancionado = user.getUsuario(usuario);
+		if(user.getUsuario(usuario)!=null){//Si el usuario existe ->
+			Usuario sancionado = user.getUsuario(usuario);//Variable para identificar el usuario sancionado
 			Session session = null;
 			try{
 				session = sessionFactory.getCurrentSession(); //para conectarse con el BEAN definido en SpringConf.xml
@@ -74,7 +74,7 @@ public class SancionDaoImp {
 	}
 	
 	public List<Sancion> getSanciones() throws ExceptionController{
-		List<Sancion> lista = new ArrayList<Sancion>();
+		List<Sancion> lista = new ArrayList<Sancion>();//Lista donde se guardarán las sanciones de la bd
 		Session session = null;
 		try {
 			session = sessionFactory.getCurrentSession(); //para conectarse con el BEAN definido en SpringConf.xml
