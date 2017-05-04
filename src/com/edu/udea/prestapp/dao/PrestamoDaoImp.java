@@ -18,6 +18,7 @@ import org.hibernate.SessionFactory;
 
 import com.edu.udea.prestapp.dto.Objeto;
 import com.edu.udea.prestapp.dto.Prestamo;
+import com.edu.udea.prestapp.dto.PrestamoID;
 import com.edu.udea.prestapp.dto.Reserva;
 import com.edu.udea.prestapp.dto.Sancion;
 import com.edu.udea.prestapp.dto.Usuario;
@@ -45,12 +46,14 @@ public class PrestamoDaoImp {
 			throw new ExceptionController("La fecha de prestamo no puede estar vacia");
 		}
 		ObjetoDaoImp objeto = new ObjetoDaoImp();
-		UsuarioDaoImp user = new UsuarioDaoImp(); //se obtiene el usuario por medio del getUsuario
+		UsuarioDaoImp user = new UsuarioDaoImp();
+		
 		if(objeto.getObjeto(idObjeto)!=null && user.getUsuario(usuario)!=null){	//se valida si la reserva existe
 			Objeto prestado = objeto.getObjeto(idObjeto); //Id del objeto
 			Usuario prestamista = user.getUsuario(usuario);//usuario del que presta el objeto
 			Date fechaPrestacion = new Date();
-			Prestamo prestamo = new Prestamo(prestamista.getId(),prestado.getId(),fechaPrestamo,fechaDevolucion,null);//Se crea un prestamo con los datos
+			PrestamoID prest = new PrestamoID(prestado,prestamista);
+			Prestamo prestamo = new Prestamo(prest,fechaPrestamo,fechaDevolucion,null);//Se crea un prestamo con los datos
 			/*Buscar si hay reservas de este objeto con el id del prestamista para la fecha de reserva*/
 			Session session = null;
 			try{

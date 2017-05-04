@@ -11,21 +11,27 @@ import java.io.Serializable;
 
 public class PrestamoID implements Serializable{
 
-	private int idObjeto;
-	private int idUsuario;
+	private Objeto objeto;
+	private Usuario usuario;
 	
-	public int getIdObjeto() {
-		return idObjeto;
-	}
-	public void setIdObjeto(int idObjeto) {
-		this.idObjeto = idObjeto;
-	}
-	public int getIdUsuario() {
-		return idUsuario;
-	}
-	public void setIdUsuario(int idUsuario) {
-		this.idUsuario = idUsuario;
-	}
+	public PrestamoID(){}
 	
-	
+	public PrestamoID(Objeto objeto, Usuario usuario) {
+		super();
+		this.objeto = objeto;
+		this.usuario = usuario;
+	}
+	public Objeto getObjeto() {
+		return objeto;
+	}
+	public void setObjeto(Objeto objeto) {
+		this.objeto = objeto;
+	}
+	public Usuario getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
 }

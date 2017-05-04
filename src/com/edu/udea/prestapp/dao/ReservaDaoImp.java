@@ -46,7 +46,7 @@ public class ReservaDaoImp {
 				Objeto prestamo = objeto.getObjeto(idObjeto); //Id del objeto a reservar
 				Usuario prestamista = user.getUsuario(usuario);//usuario de la persona que va a realizar el prestamo
 				Date fechaReserva = new Date();
-				Reserva reserva = new Reserva(prestamista.getId(),prestamo.getId(),fechaReserva,fechaPrestamo);//Se crea una reserva con los datos
+				Reserva reserva = new Reserva(prestamista,prestamo,fechaReserva,fechaPrestamo);//Se crea una reserva con los datos
 				Session session = null;
 				try{
 					session = sessionFactory.getCurrentSession(); //para conectarse con el BEAN definido en SpringConf.xml

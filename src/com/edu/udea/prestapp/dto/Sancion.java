@@ -12,7 +12,7 @@ import java.util.Date;
 public class Sancion {
 
 	private int id;
-	private int idUsuario;
+	private Usuario usuario;
 	private String tipoSancion;
 	private Date inicioSancion;
 	private Date finSancion;
@@ -23,11 +23,11 @@ public class Sancion {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getIdUsuario() {
-		return idUsuario;
+	public Usuario getUsuario() {
+		return usuario;
 	}
-	public void setIdUsuario(int idUsuario) {
-		this.idUsuario = idUsuario;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 	public String getTipoSancion() {
 		return tipoSancion;

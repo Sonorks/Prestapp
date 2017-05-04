@@ -8,12 +8,12 @@
             <column name="ID" />
             <generator class="assigned" />
         </id>
-        <property name="idUsuario" type="int">
-            <column name="IDUSUARIO" />
-        </property>
-        <property name="idObjeto" type="int">
-            <column name="IDOBJETO" />
-        </property>
+        <many-to-one class="com.edu.udea.prestapp.dto.Usuario" name="usuario" lazy="proxy" fetch="join">
+        	<column name="IDUSUARIO"></column>
+        </many-to-one>
+        <many-to-one class="com.edu.udea.prestapp.dto.Objeto" name="objeto" lazy="proxy" fetch="join">
+        	<column name="IDOBJETO"></column>
+        </many-to-one>
         <property name="fechaReserva" type="java.util.Date">
             <column name="FECHARESERVA" />
         </property>

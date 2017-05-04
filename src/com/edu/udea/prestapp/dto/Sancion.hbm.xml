@@ -8,9 +8,9 @@
             <column name="ID" />
             <generator class="assigned" />
         </id>
-        <property name="idUsuario" type="int">
-            <column name="IDUSUARIO" />
-        </property>
+        <many-to-one class="com.edu.udea.prestapp.dto.Usuario" name="usuario" lazy="proxy" fetch="join">
+        	<column name="IDUSUARIO"></column>
+        </many-to-one>
         <property name="tipoSancion" type="java.lang.String">
             <column name="TIPOSANCION" />
         </property>

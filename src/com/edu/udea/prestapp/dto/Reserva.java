@@ -11,8 +11,8 @@ import java.util.Date;
 
 public class Reserva {
 	private int id;
-	private int idUsuario;
-	private int idObjeto;
+	private Usuario usuario;
+	private Objeto objeto;
 	private Date fechaReserva;
 	private Date fechaPrestamo;
 	
@@ -21,9 +21,9 @@ public class Reserva {
 		
 	}
 	
-	public Reserva(int idUsuario, int idObjeto, Date fechaReserva, Date fechaPrestamo) {
-		this.idUsuario = idUsuario;
-		this.idObjeto = idObjeto;
+	public Reserva(Usuario usuario, Objeto objeto, Date fechaReserva, Date fechaPrestamo) {
+		this.usuario = usuario;
+		this.objeto = objeto;
 		this.fechaReserva = fechaReserva;
 		this.fechaPrestamo = fechaPrestamo;
 	}
@@ -33,18 +33,23 @@ public class Reserva {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getIdUsuario() {
-		return idUsuario;
+	
+	public Usuario getUsuario() {
+		return usuario;
 	}
-	public void setIdUsuario(int idUsuario) {
-		this.idUsuario = idUsuario;
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
-	public int getIdObjeto() {
-		return idObjeto;
+	
+	public Objeto getObjeto() {
+		return objeto;
 	}
-	public void setIdObjeto(int idObjeto) {
-		this.idObjeto = idObjeto;
+
+	public void setObjeto(Objeto objeto) {
+		this.objeto = objeto;
 	}
+
 	public Date getFechaReserva() {
 		return fechaReserva;
 	}
