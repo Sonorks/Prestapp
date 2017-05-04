@@ -5,10 +5,43 @@ import java.util.Date;
 public class Prestamo {
 
 	private PrestamoID id;
+	private int idUsuario;
+	private int idObjeto;
 	private Date fechaPrestamo;
 	private Date fechaDevolucion;
 	private Date fechaReserva;
 	
+	public Prestamo(){
+		
+	}
+	
+	public Prestamo(int idUsuario, int idObjeto, Date fechaPrestamo, Date fechaDevolucion,
+			Date fechaReserva) {
+		this.idUsuario = idUsuario;
+		this.idObjeto = idObjeto;
+		this.fechaPrestamo = fechaPrestamo;
+		this.fechaDevolucion = fechaDevolucion;
+		this.fechaReserva = fechaReserva;
+	}
+
+
+
+	public int getIdUsuario() {
+		return idUsuario;
+	}
+
+	public void setIdUsuario(int idUsuario) {
+		this.idUsuario = idUsuario;
+	}
+
+	public int getIdObjeto() {
+		return idObjeto;
+	}
+
+	public void setIdObjeto(int idObjeto) {
+		this.idObjeto = idObjeto;
+	}
+
 	public PrestamoID getId() {
 		return id;
 	}

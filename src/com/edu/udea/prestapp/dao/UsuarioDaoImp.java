@@ -1,5 +1,6 @@
 package com.edu.udea.prestapp.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -11,6 +12,7 @@ import org.hibernate.criterion.Restrictions;
 import com.edu.udea.prestapp.dto.Usuario;
 import com.edu.udea.prestapp.exception.ExceptionController;
 
+//Implementación del usuario 
 public class UsuarioDaoImp {
 	private SessionFactory sessionFactory;
 
@@ -22,6 +24,7 @@ public class UsuarioDaoImp {
 		this.sessionFactory = sessionFactory;
 	}
 	
+	//Método para loguear al usuario
 	public void doLogin(String usuario, String contrasena) throws ExceptionController{
 		
 		if(usuario.isEmpty() || usuario == null) { //validando que se reciba un usuario
@@ -39,7 +42,8 @@ public class UsuarioDaoImp {
 		}
 	}
 	
-	private Usuario getUsuario(String usuario) throws ExceptionController {
+	//Método que devuelve el usuario segun su nombre de usuario
+	public Usuario getUsuario(String usuario) throws ExceptionController {
 		Session session = null;
 		Usuario user = new Usuario();
 		try{
@@ -56,6 +60,7 @@ public class UsuarioDaoImp {
 		return user;
 	}
 
+	//Método con el que él usuario puede restablecer la contraseña 
 	public void restablecerContrasena(String usuario, String correo, String contrasenaActual, String contrasenaNueva) throws ExceptionController{
 		if(usuario.isEmpty() || usuario == null) { //validando que se reciba un usuario
 			throw new ExceptionController("El usuario no puede estar vacía");
@@ -86,6 +91,7 @@ public class UsuarioDaoImp {
 		}
 	}
 	
+	//Método para registrar un usuario nuevo en la BD
 	public void registrarUsuario(int id, String nombres, String apellidos, String correo, String usuario, String contrasena, String tipoId, String telefono, boolean admin) throws ExceptionController{
 		if(nombres.isEmpty() || nombres == null) {
 			throw new ExceptionController("El nombre no puede estar vacio");
@@ -135,6 +141,7 @@ public class UsuarioDaoImp {
 		}
 	}
 	
+	//Método para modificar un usuario existente
 	public void modificarUsuario(int id, String usuario, String nombres, String apellidos, String telefono, String correo) throws ExceptionController{
 		if(nombres.isEmpty() || nombres == null) {
 			throw new ExceptionController("El nombre no puede estar vacio");
@@ -172,6 +179,7 @@ public class UsuarioDaoImp {
 		
 	}
 	
+	//Método para eliminar un usuario existente con parametros de id y nombre de usuario
 	public String eliminarUsuario(int id, String usuario) throws ExceptionController{
 		if(usuario.isEmpty() || usuario == null) {
 			throw new ExceptionController("El usuario no puede estar vacio");
@@ -185,6 +193,8 @@ public class UsuarioDaoImp {
 				return "Usuario eliminado";
 			}catch(HibernateException e){
 				throw new ExceptionController("Error consultando usuario");
+			}finally{
+				session.close();
 			}
 		}else{
 			throw new ExceptionController("Credenciales incorrectas");
@@ -192,9 +202,19 @@ public class UsuarioDaoImp {
 		
 	}
 	
+	//Método que devuelve una lista de usuarios
 	public List<Usuario> getUsuarios() throws ExceptionController{
-		
-		
-		return null;
+		List<Usuario> lista = new ArrayList<Usuario>();
+		Session session = null;
+		try {
+			session = sessionFactory.getCurrentSession(); //para conectarse con el BEAN definido en SpringConf.xml
+			Criteria criteria = session.createCriteria(Usuario.class); //retorna la busqueda en la tabla seleccionada
+			lista = criteria.list();
+		}catch(HibernateException e){
+			throw new ExceptionController("Error consultando objetos",e);
+		}finally {
+			session.close();
+		}
+		return lista;
 	}
 }

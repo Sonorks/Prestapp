@@ -9,6 +9,17 @@ public class Reserva {
 	private Date fechaReserva;
 	private Date fechaPrestamo;
 	
+	
+	public Reserva(){
+		
+	}
+	
+	public Reserva(int idUsuario, int idObjeto, Date fechaReserva, Date fechaPrestamo) {
+		this.idUsuario = idUsuario;
+		this.idObjeto = idObjeto;
+		this.fechaReserva = fechaReserva;
+		this.fechaPrestamo = fechaPrestamo;
+	}
 	public int getId() {
 		return id;
 	}
