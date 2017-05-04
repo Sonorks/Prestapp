@@ -57,6 +57,20 @@ public class ObjetoDaoImp implements InterfaceObjetoDao {
 		
 		return lista;
 	}
+	public List<Objeto> getObjetosNoDisponibles() throws ExceptionController{
+		List<Objeto> lista = new ArrayList<Objeto>(); //Lista en donde se guardaran los objetos disponibles
+		Session session = null;
+		try {
+			session = sessionFactory.getCurrentSession(); //para conectarse con el BEAN definido en SpringConf.xml
+			Criteria criteria = session.createCriteria(Objeto.class);//retorna la busqueda en la tabla seleccionada
+			criteria.add( Restrictions.eq("disponibilidad", new Integer(1) ) ); //Se le añade la restriccion de que la disponibilidad sea 0, es decir, esté disponible
+			lista = criteria.list();
+		}catch(HibernateException e){
+			throw new ExceptionController("Error consultando disponibilidad",e);
+		}
+		
+		return lista;
+	}
 	public String modificarDisponibilidad (int id, int tipoCambio) throws ExceptionController{
 		Session session = null;
 		Objeto objeto = getObjeto(id);//Objeto a modificar

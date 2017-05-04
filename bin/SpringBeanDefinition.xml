@@ -53,6 +53,10 @@
 	<bean id="ReservaDaoImp" class="com.edu.udea.prestapp.dao.ReservaDaoImp">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
+	<bean id="UsuarioBL" class="com.edu.udea.prestapp.bl.UsuarioBL">
+		<property name="usuarioDaoImp" ref="UsuarioDaoImp"></property>	
+	</bean>
+	
 	
 	<tx:annotation-driven transaction-manager="txManager"/>
 	

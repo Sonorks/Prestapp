@@ -8,7 +8,7 @@ package com.edu.udea.prestapp.dto;
  */
 
 public class Objeto {
-
+	//Dispositivo que se presta en el laboratorio
 	private int id;
 	private String nombre;
 	private boolean disponibilidad;
