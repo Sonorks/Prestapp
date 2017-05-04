@@ -26,7 +26,6 @@ public class ObjetoDaoTest {
 	@Test
 	public void testGetObjetos() {
 		log.info("Iniciando prueba de obtener todos los Objetos de la BD");
-		Objeto objeto = null;
 		List<Objeto> lista = null;
 		try {
 			//ciudadDao = new CiudadDaoSpring(); //se construye el objeto con la implementacion de la interfaz
@@ -40,22 +39,58 @@ public class ObjetoDaoTest {
 
 	@Test
 	public void testGetObjetosDisponibles() {
-		fail("Not yet implemented");
+		log.info("Iniciando prueba de obtener todos los Objetos disponibles de la BD");
+		List<Objeto> lista = null;
+		try {
+			//ciudadDao = new CiudadDaoSpring(); //se construye el objeto con la implementacion de la interfaz
+			lista = objetoDao.getObjetosDisponibles(); //llamado del metodo
+			assertTrue(lista.size()>0);  //si se obtienen datos
+		}catch(ExceptionController e) {
+			e.printStackTrace(); //manda todo el error a consola
+			fail(e.getMessage());  //mensaje personalizado
+		}
 	}
 
 	@Test
 	public void testModificarDisponibilidad() {
-		fail("Not yet implemented");
+		List<Objeto> lista = null; //lista donde se guardará el resultado del query
+		try {
+			log.info("Iniciando prueba de modificar disponibilidad de los objetos en la BD");
+			objetoDao.modificarDisponibilidad(1,1); //llamado del metodo quemado en la clase por temas de facilidad a la hora de estudiar el framework
+			lista=objetoDao.getObjetos();
+			assertTrue(lista.size()>0);
+		}catch(ExceptionController e) {
+			e.printStackTrace(); //manda todo el error a consola
+			fail(e.getMessage());  //mensaje personalizado
+		}
 	}
 
 	@Test
 	public void testEliminarObjeto() {
-		fail("Not yet implemented");
+		List<Objeto> lista = null; //lista donde se guardará el resultado del query
+		try {
+			log.info("Iniciando prueba de eliminar objeto en la BD");
+			objetoDao.eliminarObjeto(2); //llamado del metodo quemado en la clase por temas de facilidad a la hora de estudiar el framework
+			lista=objetoDao.getObjetos();
+			assertTrue(lista.size()>0);
+		}catch(ExceptionController e) {
+			e.printStackTrace(); //manda todo el error a consola
+			fail(e.getMessage());  //mensaje personalizado
+		}
 	}
 
 	@Test
 	public void testGetObjeto() {
-		fail("Not yet implemented");
+		Objeto obj = null; //Objeto en el cual se imprimira el resultado
+		try{
+			log.info("Iniciando prueba de obtener un objeto de la BD");
+			obj = objetoDao.getObjeto(1);//llamado del metodo quemado en la clase por temas de facilidad a la hora de estudiar el framework
+			assertTrue(obj!=null);//Se verifica que no sea null
+			System.out.println(obj.getNombre()+"-"+obj.getEstado());//Se imprime en consola
+		}catch(ExceptionController e){
+			e.printStackTrace();//Manda todo el error a consola
+			fail(e.getMessage());//mensaje personalizado
+		}
 	}
 
 }

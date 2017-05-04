@@ -28,7 +28,9 @@ public class PrestamoDaoImp {
 	}
 	
 	public void realizarPrestamo(String usuario, int idObjeto, Date fechaPrestamo) throws ExceptionController{
-		Date date = new Date(2016,1,1);
+		Date date = new Date(2017,1,1);//Validacioin para que la fecha sea del año actual
+		Date fechaDevolucion = fechaPrestamo;
+		fechaDevolucion.setTime(fechaPrestamo.getTime()+604800000);//Se le suma en milisegundos una semana
 		if(usuario.isEmpty() || usuario == null) {
 			throw new ExceptionController("El usuario no puede estar vacio");
 		}
@@ -41,7 +43,8 @@ public class PrestamoDaoImp {
 			Objeto prestado = objeto.getObjeto(idObjeto);
 			Usuario prestamista = user.getUsuario(usuario);
 			Date fechaPrestacion = new Date();
-			Prestamo prestamo = new Prestamo(prestamista.getId(),prestado.getId(),fechaPrestamo,);
+			Prestamo prestamo = new Prestamo(prestamista.getId(),prestado.getId(),fechaPrestamo,fechaDevolucion,null);
+			/*Buscar si hay reservas de este objeto con el id del prestamista para la fecha de reserva*/
 			Session session = null;
 			try{
 				session = sessionFactory.getCurrentSession(); //para conectarse con el BEAN definido en SpringConf.xml
@@ -75,15 +78,25 @@ public class PrestamoDaoImp {
 	public List<Prestamo> prestamosACaducar() throws ExceptionController{
 		List<Prestamo> lista = new ArrayList<Prestamo>();
 		Session session = null;
+		Date fechaActual = new Date();
+		Date fechaDevolucion = null;
+		long dia = 86400000;
+		List<Prestamo> vencidos = new ArrayList<Prestamo>();
 		try{
 			session = sessionFactory.getCurrentSession(); //para conectarse con el BEAN definido en SpringConf.xml
 			Criteria criteria = session.createCriteria(Prestamo.class); //retorna la busqueda en la tabla seleccionada
 			lista = criteria.list();
+			for(int i=0;i<lista.size();i++){
+				fechaDevolucion=lista.get(i).getFechaDevolucion();
+				if(dia<=fechaDevolucion.getTime()-fechaActual.getTime()){
+					vencidos.add(lista.get(i));
+				}
+			}
 		}catch (HibernateException e) {
 			throw new ExceptionController("Error consultando reservas",e);
 		}finally {
 			session.close();
 		}
-		return lista;
+		return vencidos;
 	}
 }

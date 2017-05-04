@@ -41,8 +41,8 @@ public class ObjetoDaoImp implements InterfaceObjetoDao {
 		Session session = null;
 		try {
 			session = sessionFactory.getCurrentSession(); //para conectarse con el BEAN definido en SpringConf.xml
-			Criteria criteria = session.createCriteria(Objeto.class)
-					.add( Restrictions.eq("disponibilidad", new Integer(0) ) ); //retorna la busqueda en la tabla seleccionada
+			Criteria criteria = session.createCriteria(Objeto.class);
+			criteria.add( Restrictions.eq("disponibilidad", new Integer(0) ) ); //retorna la busqueda en la tabla seleccionada
 			lista = criteria.list();
 		}catch(HibernateException e){
 			throw new ExceptionController("Error consultando disponibilidad",e);

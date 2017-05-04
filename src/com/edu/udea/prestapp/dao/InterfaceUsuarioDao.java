@@ -7,6 +7,7 @@ import com.edu.udea.prestapp.exception.ExceptionController;
 
 public interface InterfaceUsuarioDao {
 	public void doLogin(String usuario, String contrasena) throws ExceptionController;
+	public Usuario getUsuario(String usuario) throws ExceptionController;
 	public void restablecerContrasena(String usuario, String correo, String contrasenaActual, String contrasenaNueva) throws ExceptionController;
 	public void registrarUsuario(int id, String nombres, String apellidos, String correo, String usuario, String contrasena, String tipoId, String telefono, boolean admin) throws ExceptionController;
 	public void modificarUsuario(int id, String usuario, String nombres, String apellidos, String telefono, String correo) throws ExceptionController;
