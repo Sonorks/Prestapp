@@ -62,7 +62,7 @@ public class PrestamoDaoImp {
 			}catch(HibernateException e){
 				throw new ExceptionController("Error al realizar el prestamo");
 			}finally{
-				session.close();
+				//session.close();
 			}
 	}else{
 		throw new ExceptionController("El objeto no existe");
@@ -78,7 +78,7 @@ public class PrestamoDaoImp {
 		}catch (HibernateException e) {
 			throw new ExceptionController("Error consultando reservas",e);
 		}finally {
-			session.close();
+			//session.close();
 		}
 		return lista;
 	}
@@ -105,7 +105,7 @@ public class PrestamoDaoImp {
 		}catch (HibernateException e) {
 			throw new ExceptionController("Error consultando reservas",e);
 		}finally {
-			session.close();
+			//session.close();
 		}
 		return vencidos;
 	}

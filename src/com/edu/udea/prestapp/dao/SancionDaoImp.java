@@ -53,7 +53,7 @@ public class SancionDaoImp {
 			}catch(HibernateException e) {
 				throw new ExceptionController("Error al sancionar el usuario");
 			}finally {
-				session.close();
+				//session.close();
 			}
 		}else{
 			throw new ExceptionController("El usuario no existe");
@@ -73,7 +73,7 @@ public class SancionDaoImp {
 			}catch(HibernateException e){
 				throw new ExceptionController("Error consultando usuario");
 			}finally{
-				session.close();
+				//session.close();
 			}
 		}else{
 			throw new ExceptionController("Credenciales incorrectas");
@@ -90,7 +90,7 @@ public class SancionDaoImp {
 		}catch(HibernateException e){
 			throw new ExceptionController("Error consultando sanciones",e);
 		}finally {
-			session.close();
+			//session.close();
 		}
 		return lista;
 		

@@ -56,8 +56,20 @@
 	<bean id="UsuarioBL" class="com.edu.udea.prestapp.bl.UsuarioBL">
 		<property name="usuarioDaoImp" ref="UsuarioDaoImp"></property>	
 	</bean>
-	
-	
+	<bean id="ObjetoBL" class="com.edu.udea.prestapp.bl.ObjetoBL">
+		<property name="objetoDaoImp" ref="ObjetoDaoImp"></property>	
+	</bean>
+	<bean id="SancionBL" class="com.edu.udea.prestapp.bl.SancionBL">
+		<property name="sancionDaoImp" ref="SancionDaoImp"></property>	
+	</bean>
+	<bean id="ReservaBL" class="com.edu.udea.prestapp.bl.ReservaBL">
+		<property name="reservaDaoImp" ref="ReservaDaoImp"></property>	
+	</bean>
+	<bean id="PrestamoBL" class="com.edu.udea.prestapp.bl.PrestamoBL">
+		<property name="prestamoDaoImp" ref="PrestamoDaoImp"></property>	
+	</bean>
 	<tx:annotation-driven transaction-manager="txManager"/>
+	
+	<context:component-scan base-package="com.edu.udea.prestapp.ws"></context:component-scan>
 	
 </beans>

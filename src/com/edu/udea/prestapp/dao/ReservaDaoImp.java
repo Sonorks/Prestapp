@@ -54,7 +54,7 @@ public class ReservaDaoImp {
 				}catch(HibernateException e){
 					throw new ExceptionController("Error al realizar el prestamo");
 				}finally{
-					session.close();
+					//session.close();
 				}
 		}else{
 			throw new ExceptionController("El objeto no existe");
@@ -71,7 +71,7 @@ public class ReservaDaoImp {
 			}catch(HibernateException e){
 				throw new ExceptionController("Error consultando reserva");
 			}finally{
-				session.close();
+				//session.close();
 			}
 		}else{
 			throw new ExceptionController("Credenciales incorrectas");
@@ -90,7 +90,7 @@ public class ReservaDaoImp {
 		}catch(HibernateException e){
 			throw new ExceptionController("Error consultando reserva", e);
 		}finally{
-			session.close();
+			//session.close();
 		}
 		return reserva;
 	}
@@ -108,7 +108,7 @@ public class ReservaDaoImp {
 			} catch (HibernateException e) {
 				throw new ExceptionController("Error consultando reserva");
 			}finally {
-				session.close();
+				//session.close();
 			}
 		}else{
 			throw new ExceptionController("Error en la fecha de reserva");
@@ -125,7 +125,7 @@ public class ReservaDaoImp {
 		}catch(HibernateException e){
 			throw new ExceptionController("Error consultando reservas",e);
 		}finally {
-			session.close();
+			//session.close();
 		}
 		return lista;
 	}

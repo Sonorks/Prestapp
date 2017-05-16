@@ -43,7 +43,7 @@ public class UsuarioDaoImp {
 		}catch(HibernateException e){
 			throw new ExceptionController("Error consultando usuario", e);
 		}finally{
-			session.close();
+			//session.close();
 		}
 		return user;
 	}
@@ -58,7 +58,7 @@ public class UsuarioDaoImp {
 		}catch (HibernateException e) {
 			throw new ExceptionController("Error cambiando contraseña",e);
 		}finally {
-			session.close();
+			//session.close();
 		}
 	}
 	
@@ -107,7 +107,7 @@ public class UsuarioDaoImp {
 			}catch (HibernateException e) {
 				throw new ExceptionController("Error guardando usuario",e);
 			}finally {
-				session.close();
+				//session.close();
 			}
 		}
 	}
@@ -142,7 +142,7 @@ public class UsuarioDaoImp {
 			}catch (HibernateException e) {
 				throw new ExceptionController("Error modificando usuario",e);
 			}finally{
-				session.close();
+				//session.close();
 			}
 		}else{
 			throw new ExceptionController("Credenciales incorrectas");
@@ -165,7 +165,7 @@ public class UsuarioDaoImp {
 			}catch(HibernateException e){
 				throw new ExceptionController("Error consultando usuario");
 			}finally{
-				session.close();
+				//session.close();
 			}
 		}else{
 			throw new ExceptionController("Credenciales incorrectas");
@@ -184,7 +184,7 @@ public class UsuarioDaoImp {
 		}catch(HibernateException e){
 			throw new ExceptionController("Error consultando objetos",e);
 		}finally {
-			session.close();
+			//session.close();
 		}
 		return lista;
 	}
