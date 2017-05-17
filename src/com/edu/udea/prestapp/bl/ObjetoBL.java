@@ -1,5 +1,7 @@
 package com.edu.udea.prestapp.bl;
 
+import java.util.ArrayList;
+
 /**
  * @author Cristian Berrio - cbp453252.hdrl@gmail.com
  * @author Julian Vasquez - julivas96@gmail.com
@@ -32,17 +34,19 @@ public class ObjetoBL {
 		this.objetoDaoImp = objetoDaoImp;
 	}
 	
-	public void mostrarObjetos() throws ExceptionController {
+	public List<Objeto> mostrarObjetos() throws ExceptionController {
 		log.info("Iniciando metodo mostrar objetos");
 		int cantDisponibles=0;
 		List<Objeto> lista;
+		List<Objeto> listaDisponibles = new ArrayList();
 		try {
 			lista= objetoDaoImp.getObjetos();
 		}catch(Exception e){
 			throw new ExceptionController("Error consultando objetos", e);
 		}
 		for (int i = 0; i<lista.size(); i++) {
-			if(lista.get(i).isDisponibilidad() && !lista.get(i).isReservado() && lista.get(i).getEstado()=="bueno") {
+			if(lista.get(i).isDisponibilidad() && !lista.get(i).isReservado() && lista.get(i).getEstado().equals("funcional")) {
+				listaDisponibles.add(lista.get(i));
 				log.debug(lista.get(i).getNombre() + " disponible");
 				cantDisponibles++;
 			}
@@ -50,11 +54,11 @@ public class ObjetoBL {
 				log.debug(lista.get(i).getNombre() + " no disponible");
 			}
 		}
-		System.out.println("Cantidad de objetos disponibles: "+cantDisponibles);
+		return listaDisponibles;
 	}
 	
 	public void modificarDisponibilidad(int id, int tipoCambio) throws ExceptionController {
-		log.info("Iniciando metodo modificar disponibilidad");
+		log.info("Iniciando metodo modificar disponibilidad con id: "+id+ " y tipoCambio: "+tipoCambio);
 		//tipos de cambio: 1=Disponible, 2=Prestado, 3 = Reservado
 		Objeto obj = null;
 		//Date fecha = new Date();
@@ -63,44 +67,51 @@ public class ObjetoBL {
 		}catch(Exception e) {
 			throw new ExceptionController("Error consultando objeto con id "+id,e);
 		}
-		if(tipoCambio==1 && obj.isDisponibilidad()) {
+		if(tipoCambio==1 && !obj.isDisponibilidad()) {
+			System.out.println("Cambio tipo 1");
+			objetoDaoImp.modificarDisponibilidad(id, tipoCambio);
+		}
+		/*else {
+			throw new ExceptionController(tipoCambio+ "El objeto ya se encuentra disponible "+obj.isDisponibilidad());
+		}*/
+		else if(tipoCambio==2 && obj.isDisponibilidad()) {
+			System.out.println("Cambio tipo 2");
+			objetoDaoImp.modificarDisponibilidad(id, tipoCambio);
+		}
+		/*else {
+			throw new ExceptionController(tipoCambio+ "El objeto ya se encuentra prestado "+obj.isDisponibilidad());
+		}*/
+		else if(tipoCambio==3 && !obj.isReservado()) {
+			System.out.println("Cambio tipo 3");
+			objetoDaoImp.modificarDisponibilidad(id, tipoCambio);
+		}
+		/*else {
+			throw new ExceptionController(tipoCambio+ "El objeto ya se encuentra reservado "+obj.isReservado());
+			}*/
+		else if(tipoCambio==4 && obj.isReservado()) {
 			objetoDaoImp.modificarDisponibilidad(id, tipoCambio);
 		}
 		else {
-			throw new ExceptionController("El objeto ya se encuentra disponible");
-		}
-		if(tipoCambio==2 && !obj.isDisponibilidad()) {
-			objetoDaoImp.modificarDisponibilidad(id, tipoCambio);
-		}
-		else {
-			throw new ExceptionController("El objeto ya se encuentra prestado");
-		}
-		if(tipoCambio==3 && !obj.isReservado()) {
-			objetoDaoImp.modificarDisponibilidad(id, tipoCambio);
-		}
-		else {
-			throw new ExceptionController("El objeto ya se encuentra reservado");
-			}
-		if(tipoCambio==4 && obj.isReservado()) {
-			objetoDaoImp.modificarDisponibilidad(id, tipoCambio);
-		}
-		else {
-			throw new ExceptionController("El objeto no se encontraba reservado");
+			throw new ExceptionController(tipoCambio+ "El objeto no se encontraba reservado "+obj.isReservado());
 		}
 	}
 
-	public void mostrarObjetosPrestados() throws ExceptionController{
+	public List<Objeto> mostrarObjetosPrestados() throws ExceptionController{
 		log.info("Iniciando metodo mostrar objetos prestados");
 		List<Objeto> lista;
+		List<Objeto> listaPrestados = new ArrayList();
 		lista = objetoDaoImp.getObjetosNoDisponibles();
 		for(int i = 0 ; i < lista.size(); i ++) {
-			if(!lista.get(i).isReservado())
-			System.out.println(lista.get(i).getNombre()+ " prestado");
+			if(!lista.get(i).isReservado()) {
+				listaPrestados.add(lista.get(i));
+			}
 		}
+		return listaPrestados;
 	}
 	
-	public void eliminarObjeto(Usuario usuario,int idObjeto) throws ExceptionController {
+	public void eliminarObjeto(String user,int idObjeto) throws ExceptionController {
 		log.info("Iniciando metodo eliminar objeto");
+		Usuario usuario = usuarioDaoImp.getUsuario(user);
 		if(!usuario.isAdmin()) {
 			throw new ExceptionController("El usuario no es administrador");
 		}

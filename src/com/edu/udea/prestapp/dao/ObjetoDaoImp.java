@@ -49,7 +49,7 @@ public class ObjetoDaoImp implements InterfaceObjetoDao {
 		try {
 			session = sessionFactory.getCurrentSession(); //para conectarse con el BEAN definido en SpringConf.xml
 			Criteria criteria = session.createCriteria(Objeto.class);//retorna la busqueda en la tabla seleccionada
-			criteria.add( Restrictions.eq("disponibilidad", new Integer(0) ) ); //Se le añade la restriccion de que la disponibilidad sea 0, es decir, esté disponible
+			criteria.add( Restrictions.eq("disponibilidad", new Boolean(true)) ); //Se le añade la restriccion de que la disponibilidad sea 0, es decir, esté disponible
 			lista = criteria.list();
 		}catch(HibernateException e){
 			throw new ExceptionController("Error consultando disponibilidad",e);
@@ -63,7 +63,7 @@ public class ObjetoDaoImp implements InterfaceObjetoDao {
 		try {
 			session = sessionFactory.getCurrentSession(); //para conectarse con el BEAN definido en SpringConf.xml
 			Criteria criteria = session.createCriteria(Objeto.class);//retorna la busqueda en la tabla seleccionada
-			criteria.add( Restrictions.eq("disponibilidad", new Integer(1) ) ); //Se le añade la restriccion de que la disponibilidad sea 0, es decir, esté disponible
+			criteria.add( Restrictions.eq("disponibilidad", new Boolean(false) ) ); //Se le añade la restriccion de que la disponibilidad sea 0, es decir, esté disponible
 			lista = criteria.list();
 		}catch(HibernateException e){
 			throw new ExceptionController("Error consultando disponibilidad",e);
@@ -77,7 +77,7 @@ public class ObjetoDaoImp implements InterfaceObjetoDao {
 		if(tipoCambio == 1) {//Si el tipoCambio es 1 el objeto será disponible, si es 0 no estará disponible
 			objeto.setDisponibilidad(true);
 		}
-		else if (tipoCambio == 0) {
+		else if (tipoCambio == 2) {
 			objeto.setDisponibilidad(false);
 		}
 		try {
@@ -101,9 +101,9 @@ public class ObjetoDaoImp implements InterfaceObjetoDao {
 	}
 	public Objeto getObjeto(int id) throws ExceptionController{
 		Session session = null;
-		Objeto objeto = getObjeto(id);
+		Objeto objeto;
 		try {
-			session = sessionFactory.getCurrentSession(); //para conectarse con el BEAN definido en SpringConf.xml
+			session = sessionFactory.getCurrentSession();//para conectarse con el BEAN definido en SpringConf.xml
 			objeto = (Objeto) session.get(Objeto.class,id);
 		}catch(HibernateException e){
 			throw new ExceptionController("Error consultando objeto con id "+id,e);
