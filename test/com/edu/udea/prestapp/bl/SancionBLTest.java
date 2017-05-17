@@ -19,7 +19,7 @@ public class SancionBLTest {
 	@Test
 	public void test() {
 		try {
-			sancion.sancionarUsuario(null, null, null, 0);
+			sancion.sancionarUsuario(null, null, null, 0, 0);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}

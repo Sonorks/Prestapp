@@ -90,9 +90,9 @@ public class UsuarioBL {
 			throw new ExceptionController("Credenciales incorrectas");
 		}
 	}
-	public void registrarUsuario(String usuario, String contraseña, String contraseña2, String tipoId, int id, String nombres, String apellidos, String correo, String telefono, Usuario usuarioAdmin) throws ExceptionController {
+	public void registrarUsuario(String usuario, String contrasena, String contrasena2, String tipoId, int id, String nombres, String apellidos, String correo, String telefono, Usuario usuarioAdmin) throws ExceptionController {
 		log.info("Iniciando metodo registrar usuario");
-		if(contraseña.equals(contraseña2)) {
+		if(contrasena.equals(contrasena2)) {
 			return;
 		}
 		for(int i = 0 ; i < usuario.length(); i++) {
@@ -101,8 +101,8 @@ public class UsuarioBL {
 				throw new ExceptionController("El usuario contiene caracteres inválidos");
 			}
 		}
-		for(int i = 0 ; i < contraseña.length(); i++) {
-			char c = contraseña.charAt(i);
+		for(int i = 0 ; i < contrasena.length(); i++) {
+			char c = contrasena.charAt(i);
 			if(!Character.isLetterOrDigit(c)) {
 				throw new ExceptionController("la contraseña contiene caracteres inválidos");
 			}
@@ -138,7 +138,7 @@ public class UsuarioBL {
 			}
 		}
 		if(usuarioAdmin.isAdmin()) {
-			usuarioDaoImp.registrarUsuario(id, nombres, apellidos, correo, usuario, contraseña, tipoId, telefono, false);
+			usuarioDaoImp.registrarUsuario(id, nombres, apellidos, correo, usuario, contrasena, tipoId, telefono, false);
 		}
 		else {
 			throw new ExceptionController("El usuario que intenta registrar no es administrador");
