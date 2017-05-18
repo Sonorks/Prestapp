@@ -13,6 +13,7 @@ import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.edu.udea.prestapp.exception.ExceptionController;
@@ -26,8 +27,11 @@ import com.edu.udea.prestapp.dto.Usuario;
 @Transactional
 public class UsuarioBL {
 	final Logger log = Logger.getLogger(UsuarioBL.class.getName());
+	@Autowired
 	private UsuarioDaoImp usuarioDaoImp;
+	@Autowired
 	private ReservaDaoImp reservaDaoImp;
+	@Autowired
 	private PrestamoDaoImp prestamoDaoImp;
 	public UsuarioDaoImp getUsuarioDaoImp() {
 		return usuarioDaoImp;

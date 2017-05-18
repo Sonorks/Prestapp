@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.edu.udea.prestapp.dao.ObjetoDaoImp;
@@ -27,10 +28,15 @@ import com.edu.udea.prestapp.exception.ExceptionController;
 @Transactional
 public class SancionBL {
 	final Logger log = Logger.getLogger(SancionBL.class.getName());
+	@Autowired
 	private SancionDaoImp sancionDaoImp;
+	@Autowired
 	private UsuarioDaoImp usuarioDaoImp;
+	@Autowired
 	private ReservaDaoImp reservaDaoImp;
+	@Autowired
 	private ObjetoDaoImp objetoDaoImp;
+	@Autowired
 	private PrestamoDaoImp prestamoDaoImp;
 	public SancionDaoImp getSancionDaoImp() {
 		return sancionDaoImp;

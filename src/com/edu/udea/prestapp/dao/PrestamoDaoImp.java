@@ -15,6 +15,7 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.edu.udea.prestapp.dto.Objeto;
 import com.edu.udea.prestapp.dto.Prestamo;
@@ -26,7 +27,10 @@ import com.edu.udea.prestapp.exception.ExceptionController;
 
 public class PrestamoDaoImp {
 	private SessionFactory sessionFactory;
-
+	@Autowired
+	private ObjetoDaoImp objeto;
+	@Autowired
+	private UsuarioDaoImp user;
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}
@@ -37,16 +41,16 @@ public class PrestamoDaoImp {
 	
 	public void realizarPrestamo(String usuario, int idObjeto, Date fechaPrestamo) throws ExceptionController{
 		Date date = new Date(2017,1,1);//Validacioin para que la fecha sea del año actual
+		System.out.println(fechaPrestamo+" "+date);
 		Date fechaDevolucion = fechaPrestamo; //Fecha limite del prestamo
 		fechaDevolucion.setTime(fechaPrestamo.getTime()+604800000);//Se le suma en milisegundos una semana
 		if(usuario.isEmpty() || usuario == null) {
 			throw new ExceptionController("El usuario no puede estar vacio");
 		}
-		if(fechaPrestamo.before(date) || fechaPrestamo == null) {
+		if(fechaPrestamo == null) {
 			throw new ExceptionController("La fecha de prestamo no puede estar vacia");
 		}
-		ObjetoDaoImp objeto = new ObjetoDaoImp();
-		UsuarioDaoImp user = new UsuarioDaoImp();
+		//UsuarioDaoImp user = new UsuarioDaoImp();
 		
 		if(objeto.getObjeto(idObjeto)!=null && user.getUsuario(usuario)!=null){	//se valida si la reserva existe
 			Objeto prestado = objeto.getObjeto(idObjeto); //Id del objeto

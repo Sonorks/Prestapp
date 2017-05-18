@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.edu.udea.prestapp.dao.ObjetoDaoImp;
@@ -25,9 +26,13 @@ import com.edu.udea.prestapp.exception.ExceptionController;
 @Transactional
 public class ReservaBL {
 	final Logger log = Logger.getLogger(ReservaBL.class.getName());
+	@Autowired
 	private ReservaDaoImp reservaDaoImp;
+	@Autowired
 	private UsuarioDaoImp usuarioDaoImp;
+	@Autowired
 	private ObjetoDaoImp objetoDaoImp;
+	@Autowired
 	private SancionDaoImp sancionDaoImp;
 	public ReservaDaoImp getReservaDaoImp() {
 		return reservaDaoImp;

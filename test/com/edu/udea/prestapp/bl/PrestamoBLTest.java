@@ -19,7 +19,7 @@ public class PrestamoBLTest {
 	@Test
 	public void test() {
 		try {
-			prestamo.realizarPrestamo(null, 0);
+			prestamo.realizarPrestamo("SONORKS", 1);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}

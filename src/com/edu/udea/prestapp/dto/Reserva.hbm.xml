@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated Apr 30, 2017 10:41:25 AM by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
-    <class name="com.edu.udea.prestapp.dto.Reserva" table="reserva">
+    <class name="com.edu.udea.prestapp.dto.Reserva" table="reservas">
         <id name="id" type="int">
             <column name="ID" />
             <generator class="assigned" />
