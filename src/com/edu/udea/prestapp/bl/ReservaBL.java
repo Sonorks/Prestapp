@@ -25,10 +25,12 @@ import com.edu.udea.prestapp.exception.ExceptionController;
 @Transactional
 public class ReservaBL {
 	final Logger log = Logger.getLogger(ReservaBL.class.getName());
+	//Daos necesarios para hacer la logica del negocio
 	private ReservaDaoImp reservaDaoImp;
 	private UsuarioDaoImp usuarioDaoImp;
 	private ObjetoDaoImp objetoDaoImp;
 	private SancionDaoImp sancionDaoImp;
+	//Getters y setters
 	public ReservaDaoImp getReservaDaoImp() {
 		return reservaDaoImp;
 	}
@@ -37,26 +39,30 @@ public class ReservaBL {
 		this.reservaDaoImp = reservaDaoImp;
 	}
 	
+	//Metodo para realizar la reserva de un objeto
 	public void reservarObjeto(String usuario, int idObjeto, Date fechaPrestamo) throws ExceptionController {
 		log.info("Iniciando metodo reservar objeto");
 		Date fechaActual = new Date(); 
-		List<Reserva> lista = reservaDaoImp.getReservas();
+		List<Reserva> lista = reservaDaoImp.getReservas();//lista de las reservas
 		int cantReservasPorUsuario=0;
 		for (int i = 0 ; i < lista.size(); i++) {
+			//se verifica si el usuario tiene reservas
 			if(lista.get(i).getUsuario().getId() == usuarioDaoImp.getUsuario(usuario).getId()) {
-				cantReservasPorUsuario++;
+				cantReservasPorUsuario++;//se añade al contador
 			}
 		}
-		List<Sancion> listaSancion = sancionDaoImp.getSanciones();
+		List<Sancion> listaSancion = sancionDaoImp.getSanciones();//lista de sanciones
 		for (int j = 0 ; j < lista.size(); j++) {
+			//se verifica que el usuario no tenga sanciones
 			if(lista.get(j).getUsuario().getUsuario().equals(usuario)) {
 				
 				throw new ExceptionController("El usuario está sancionado.");
 			}
 		}
-		Objeto obj = objetoDaoImp.getObjeto(idObjeto);
+		Objeto obj = objetoDaoImp.getObjeto(idObjeto);//se obtiene el objeto
+		//se verifica que el usuario no tenga reservas, que el objeto este disponible, y que la fecha del prestamos no sea mayor a 3 dias
 		if(fechaPrestamo.getTime() >= fechaActual.getTime()+259200000 && cantReservasPorUsuario == 0 && obj.isDisponibilidad()) {
-			reservaDaoImp.realizarReserva(usuario, idObjeto, fechaPrestamo);
+			reservaDaoImp.realizarReserva(usuario, idObjeto, fechaPrestamo);//se realiza la reserva
 		}
 		else {
 			throw new ExceptionController("Minimo 3 dias de anticipacion para reservar");
