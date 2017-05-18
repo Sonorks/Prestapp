@@ -5,6 +5,13 @@ package com.edu.udea.prestapp.dto;
  * @author Julian Vasquez - julivas96@gmail.com
  * @author David Acevedo - davida.acevedo@udea.edu.co
  * @version = 1.0
+ * 
+ * En esta clase se detallan los atributos de los Prestamos.
+ * 
+ * prestamoID es el objeto que compone la clave primaria.
+ * la fechaPrestamo es la fecha en que se realiza el prestamo en cuestion
+ * fechaDevolucion es la fecha en la que se devuelve el prestamo
+ * fechaReserva es donde se almacena la reserva del prestamo si así se necesita.
  */
 
 import java.util.Date;

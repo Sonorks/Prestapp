@@ -5,6 +5,14 @@ package com.edu.udea.prestapp.dto;
  * @author Julian Vasquez - julivas96@gmail.com
  * @author David Acevedo - davida.acevedo@udea.edu.co
  * @version = 1.0
+ * 
+ * En esta clase se determinan los atributos de Sancion
+ * id se refiere al identificador unico
+ * Usuario es el usuario que se sanciona
+ * tipoSancion es el tipo de sanción a aplicar: Prestamo vencido, Incumplir reserva,
+ * Objeto perdido y Objeto dañado.
+ * inicioSancion es la fecha en la cual se sanciona al usuario
+ * finSancion es la fecha cuando se retira la sancion, puede ser programada o retirada manualmente
  */
 
 import java.util.Date;

@@ -40,8 +40,9 @@ public class SancionBL {
 		this.sancionDaoImp = sancionDaoImp;
 	}
 	
-	public void sancionarUsuario(String tipoSancion, String usuario, Usuario admin, int idObjeto, int idReserva) throws ExceptionController {
+	public void sancionarUsuario(String tipoSancion, String usuario, String adm, int idObjeto, int idReserva) throws ExceptionController {
 		log.info("Iniciando metodo Sancionar usuario");
+		Usuario admin = usuarioDaoImp.getUsuario(adm);
 		Usuario user = usuarioDaoImp.getUsuario(usuario);
 		Date inicioSancion = new Date();
 		Date finSancion = null;

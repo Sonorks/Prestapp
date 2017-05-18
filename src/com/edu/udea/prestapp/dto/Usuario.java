@@ -5,6 +5,13 @@ package com.edu.udea.prestapp.dto;
  * @author Julian Vasquez - julivas96@gmail.com
  * @author David Acevedo - davida.acevedo@udea.edu.co
  * @version = 1.0
+ * 
+ * En esta clase se determinan los atributos de Usuario
+ * id se refiere al identificador unico
+ * los datos personales se encuentran en los atributos: nombres, apellidos, correo, telefono.
+ * Usuario se refiere al username o mote de cada usuario.
+ * tipoId se refiere al tipo de identificacion del usuario: cedula, tarjeta de identidad, etc.
+ * admin corresponde a los permisos de cada usuario: true = administrador, false = usuario comun
  */
 
 public class Usuario {

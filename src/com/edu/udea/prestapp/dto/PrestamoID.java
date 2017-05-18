@@ -5,6 +5,10 @@ package com.edu.udea.prestapp.dto;
  * @author Julian Vasquez - julivas96@gmail.com
  * @author David Acevedo - davida.acevedo@udea.edu.co
  * @version = 1.0
+ * 
+ * en esta clase se determina la clave primaria de Prestamo
+ * objeto se refiere al objeto que se presta
+ * usuario al usuario que realiza el prestamo.
  */
 
 import java.io.Serializable;
