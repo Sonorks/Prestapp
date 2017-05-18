@@ -69,7 +69,8 @@ public class UsuarioBL {
 		}
 		return "usuario";
 	}
-	public void restablecerContrasena(String usuario, String correo, String contrasenaActual, String contrasenaNueva, Usuario username) throws ExceptionController{
+	public void restablecerContrasena(String usuario, String correo, String contrasenaActual, String contrasenaNueva, String usr) throws ExceptionController{
+		Usuario username = usuarioDaoImp.getUsuario(usr);
 		log.info("Iniciando metodo restablecer contraseña");
 		if(usuario.isEmpty() || usuario == null) { //validando que se reciba un usuario
 			throw new ExceptionController("El usuario no puede estar vacía");
@@ -90,7 +91,8 @@ public class UsuarioBL {
 			throw new ExceptionController("Credenciales incorrectas");
 		}
 	}
-	public void registrarUsuario(String usuario, String contrasena, String contrasena2, String tipoId, int id, String nombres, String apellidos, String correo, String telefono, Usuario usuarioAdmin) throws ExceptionController {
+	public void registrarUsuario(String usuario, String contrasena, String contrasena2, String tipoId, int id, String nombres, String apellidos, String correo, String telefono, String usrAdmin) throws ExceptionController {
+		Usuario usuarioAdmin = usuarioDaoImp.getUsuario(usrAdmin);
 		log.info("Iniciando metodo registrar usuario");
 		if(contrasena.equals(contrasena2)) {
 			return;
@@ -145,7 +147,8 @@ public class UsuarioBL {
 		}
 		
 	}
-	public void modificarDatosDeUsuario(String usuario, String contraseña, String nombres, String apellidos, String telefono, String correo, Usuario usuarioManipulador) throws ExceptionController {
+	public void modificarDatosDeUsuario(String usuario, String contraseña, String nombres, String apellidos, String telefono, String correo, String usrManipulador) throws ExceptionController {
+		Usuario usuarioManipulador = usuarioDaoImp.getUsuario(usrManipulador);
 		log.info("Iniciando metodo modificar usuario");
 		for(int i = 0 ; i < usuario.length(); i++) {
 			char c = usuario.charAt(i);
@@ -193,7 +196,8 @@ public class UsuarioBL {
 		}
 		
 	}
-	public void eliminarUsuario(String usuario, Usuario admin) throws ExceptionController {
+	public void eliminarUsuario(String usuario, String adm) throws ExceptionController {
+		Usuario admin = usuarioDaoImp.getUsuario(adm);
 		log.info("Iniciando metodo eliminar usuario");
 		Usuario user = null;
 		try {
