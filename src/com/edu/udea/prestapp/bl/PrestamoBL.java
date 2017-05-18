@@ -38,7 +38,7 @@ public class PrestamoBL {
 		this.prestamoDaoImp = prestamoDaoImp;
 	}
 	
-	public void realizarPrestamo (String usuarioPrestamista, int idObjeto) throws ExceptionController {
+	public void realizarPrestamo(String usuarioPrestamista, int idObjeto) throws ExceptionController {
 		log.info("Iniciando metodo realizar prestamo");
 		Usuario user = usuarioDaoImp.getUsuario(usuarioPrestamista);
 		Objeto obj = objetoDaoImp.getObjeto(idObjeto);
@@ -64,10 +64,11 @@ public class PrestamoBL {
 		}
 	}
 
-	public void realizarDevolucion(Usuario usuario, int idObjeto, int idUsuario) throws ExceptionController {
+	public void realizarDevolucion(String user, int idObjeto, int idUsuario) throws ExceptionController {
 		log.info("Iniciando metodo realizar devolucion");
 		PrestamoID prestamoId = null;
 		Prestamo prestamo = null;
+		Usuario usuario = usuarioDaoImp.getUsuario(user);
 		Date fechaDevolucion = new Date();
 		if(!usuario.isAdmin()) {
 			throw new ExceptionController("El usuario no es administrador");
