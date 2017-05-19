@@ -24,7 +24,7 @@ public class Usuario {
 	private String contrasena;
 	private String tipoId;
 	private String telefono;
-	private boolean admin;
+	private int admin;
 	public int getId() {
 		return id;
 	}
@@ -73,12 +73,13 @@ public class Usuario {
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
-	public boolean isAdmin() {
+	public int getAdmin() {
 		return admin;
 	}
-	public void setAdmin(boolean admin) {
+	public void setAdmin(int admin) {
 		this.admin = admin;
 	}
+	
 	
 	
 }

@@ -16,6 +16,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.edu.udea.prestapp.dto.Objeto;
 import com.edu.udea.prestapp.dto.Reserva;
@@ -23,6 +24,12 @@ import com.edu.udea.prestapp.dto.Usuario;
 import com.edu.udea.prestapp.exception.ExceptionController;
 
 public class ReservaDaoImp {
+	@Autowired
+	private ObjetoDaoImp objeto;
+	
+	@Autowired
+	private UsuarioDaoImp user;
+	
 	private SessionFactory sessionFactory;
 
 	public SessionFactory getSessionFactory() {
@@ -37,11 +44,10 @@ public class ReservaDaoImp {
 		if(fechaPrestamo == null) {//validando que se reciba la fecha
 			throw new ExceptionController("La fecha no puede estar vacia");
 		}
-		if(usuario.isEmpty() || usuario == null) {//validando que se reciba el usuario
+		if(usuario == null) {//validando que se reciba el usuario
 			throw new ExceptionController("El usuario no puede estar vacio");
 		}
-		ObjetoDaoImp objeto = new ObjetoDaoImp();
-		UsuarioDaoImp user = new UsuarioDaoImp();
+		
 		if(objeto.getObjeto(idObjeto)!=null && user.getUsuario(usuario)!=null){	//se valida si la reserva existe
 				Objeto prestamo = objeto.getObjeto(idObjeto); //Id del objeto a reservar
 				Usuario prestamista = user.getUsuario(usuario);//usuario de la persona que va a realizar el prestamo
@@ -124,8 +130,6 @@ public class ReservaDaoImp {
 			lista = criteria.list();
 		}catch(HibernateException e){
 			throw new ExceptionController("Error consultando reservas",e);
-		}finally {
-			//session.close();
 		}
 		return lista;
 	}

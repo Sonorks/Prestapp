@@ -11,11 +11,11 @@
         <property name="nombre" type="java.lang.String">
             <column name="NOMBRE" length="50" not-null="true"/>
         </property>
-        <property name="disponibilidad" type="boolean">
-            <column name="DISPONIBILIDAD" not-null="true"/>
+        <property name="disponibilidad" type="int">
+            <column name="DISPONIBILIDAD" not-null="true" precision="1"/>
         </property>
-        <property name="reservado" type="boolean">
-            <column name="RESERVADO" not-null="false"/>
+        <property name="reservado" type="int">
+            <column name="RESERVADO" not-null="false" precision="1"/>
         </property>
         <property name="estado" type="java.lang.String">
             <column name="ESTADO" length="50" not-null="true"/>

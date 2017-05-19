@@ -57,7 +57,7 @@ public class PrestamoDaoImp {
 			Usuario prestamista = user.getUsuario(usuario);//usuario del que presta el objeto
 			Date fechaPrestacion = new Date();
 			PrestamoID prest = new PrestamoID(prestado,prestamista);
-			Prestamo prestamo = new Prestamo(prest,fechaPrestamo,fechaDevolucion,null);//Se crea un prestamo con los datos
+			Prestamo prestamo = new Prestamo(prest,fechaPrestamo,fechaDevolucion,fechaPrestamo);//Se crea un prestamo con los datos
 			/*Buscar si hay reservas de este objeto con el id del prestamista para la fecha de reserva*/
 			Session session = null;
 			try{

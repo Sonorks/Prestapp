@@ -30,6 +30,8 @@ public class ObjetoDaoImp implements InterfaceObjetoDao {
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
+	
+
 	public List<Objeto> getObjetos() throws ExceptionController{
 		List<Objeto> lista = new ArrayList<Objeto>();//Lista en donde se guardaran todos los objetos de la bd
 		Session session = null;
@@ -49,7 +51,7 @@ public class ObjetoDaoImp implements InterfaceObjetoDao {
 		try {
 			session = sessionFactory.getCurrentSession(); //para conectarse con el BEAN definido en SpringConf.xml
 			Criteria criteria = session.createCriteria(Objeto.class);//retorna la busqueda en la tabla seleccionada
-			criteria.add( Restrictions.eq("disponibilidad", new Boolean(true)) ); //Se le añade la restriccion de que la disponibilidad sea 0, es decir, esté disponible
+			criteria.add( Restrictions.eq("disponibilidad", new Integer(1))); //Se le añade la restriccion de que la disponibilidad sea 0, es decir, esté disponible
 			lista = criteria.list();
 		}catch(HibernateException e){
 			throw new ExceptionController("Error consultando disponibilidad",e);
@@ -63,7 +65,7 @@ public class ObjetoDaoImp implements InterfaceObjetoDao {
 		try {
 			session = sessionFactory.getCurrentSession(); //para conectarse con el BEAN definido en SpringConf.xml
 			Criteria criteria = session.createCriteria(Objeto.class);//retorna la busqueda en la tabla seleccionada
-			criteria.add( Restrictions.eq("disponibilidad", new Boolean(false) ) ); //Se le añade la restriccion de que la disponibilidad sea 0, es decir, esté disponible
+			criteria.add( Restrictions.eq("disponibilidad", new Integer(2) ) ); //Se le añade la restriccion de que la disponibilidad sea 0, es decir, esté disponible
 			lista = criteria.list();
 		}catch(HibernateException e){
 			throw new ExceptionController("Error consultando disponibilidad",e);
@@ -75,10 +77,10 @@ public class ObjetoDaoImp implements InterfaceObjetoDao {
 		Session session = null;
 		Objeto objeto = getObjeto(id);//Objeto a modificar
 		if(tipoCambio == 1) {//Si el tipoCambio es 1 el objeto será disponible, si es 0 no estará disponible
-			objeto.setDisponibilidad(true);
+			objeto.setDisponibilidad(2);
 		}
 		else if (tipoCambio == 2) {
-			objeto.setDisponibilidad(false);
+			objeto.setDisponibilidad(1);
 		}
 		try {
 			session = sessionFactory.getCurrentSession(); //para conectarse con el BEAN definido en SpringConf.xml
@@ -110,4 +112,5 @@ public class ObjetoDaoImp implements InterfaceObjetoDao {
 		}
 		return objeto;
 	}
+
 }

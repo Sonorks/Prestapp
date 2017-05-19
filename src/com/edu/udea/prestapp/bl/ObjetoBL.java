@@ -63,9 +63,9 @@ public class ObjetoBL {
 		}catch(Exception e){
 			throw new ExceptionController("Error consultando objetos", e);
 		}
-		for (int i = 0; i<lista.size(); i++) {//Se recorre toda la lista de objetos
+		for (int i = 0; i<=lista.size(); i++) {//Se recorre toda la lista de objetos
 			//Se verifica la disonibilidad y si esta funcional
-			if(lista.get(i).isDisponibilidad() && !lista.get(i).isReservado() && lista.get(i).getEstado().equals("funcional")) {
+			if(lista.get(i).getDisponibilidad()==1 && lista.get(i).getReservado()==1 && lista.get(i).getEstado().equals("funcional")) {
 				listaDisponibles.add(lista.get(i));//se agrega a la lista de disponibles
 				log.debug(lista.get(i).getNombre() + " disponible");
 				cantDisponibles++;//se aumenta el contador
@@ -88,32 +88,32 @@ public class ObjetoBL {
 		}catch(Exception e) {
 			throw new ExceptionController("Error consultando objeto con id "+id,e);//error si no lo encuentra
 		}
-		if(tipoCambio==1 && !obj.isDisponibilidad()) {//
+		if(tipoCambio==1 && obj.getDisponibilidad()==1) {//
 			/*System.out.println("Cambio tipo 1");*/
 			objetoDaoImp.modificarDisponibilidad(id, tipoCambio);//Se modifica a disponible
 		}
 		/*else {
 			throw new ExceptionController(tipoCambio+ "El objeto ya se encuentra disponible "+obj.isDisponibilidad());
 		}*/
-		else if(tipoCambio==2 && obj.isDisponibilidad()) {
+		else if(tipoCambio==2 && obj.getDisponibilidad()==2) {
 			/*System.out.println("Cambio tipo 2");*/
 			objetoDaoImp.modificarDisponibilidad(id, tipoCambio);//se modifica a prestado
 		}
 		/*else {
 			throw new ExceptionController(tipoCambio+ "El objeto ya se encuentra prestado "+obj.isDisponibilidad());
 		}*/
-		else if(tipoCambio==3 && !obj.isReservado()) {
+		else if(tipoCambio==3 && obj.getReservado()==1) {
 			/*System.out.println("Cambio tipo 3");*/
 			objetoDaoImp.modificarDisponibilidad(id, tipoCambio);//se modifica a reservado
 		}
 		/*else {
 			throw new ExceptionController(tipoCambio+ "El objeto ya se encuentra reservado "+obj.isReservado());
 			}*/
-		else if(tipoCambio==4 && obj.isReservado()) {
+		else if(tipoCambio==4 && obj.getReservado()==2) {
 			objetoDaoImp.modificarDisponibilidad(id, tipoCambio);//se modifica a no reservado
 		}
 		else {
-			throw new ExceptionController(tipoCambio+ "El objeto no se encontraba reservado "+obj.isReservado());
+			throw new ExceptionController(tipoCambio+ "El objeto no se encontraba reservado "+obj.getReservado());
 		}
 	}
 	//Metodo para mostrar los objetos Prestados
@@ -122,8 +122,11 @@ public class ObjetoBL {
 		List<Objeto> lista;//lista para todos los objetos de la bd
 		List<Objeto> listaPrestados = new ArrayList();//lista para los prestados
 		lista = objetoDaoImp.getObjetosNoDisponibles();//obtiene los objetos no disponibles
-		for(int i = 0 ; i < lista.size(); i ++) {//recorre la lista de todos los objetos de la bd
-			if(!lista.get(i).isReservado()) {//se verifica que no este reservado
+		System.out.println( lista.size()+"123");
+		for(int i = 0 ; i < lista.size(); i++) {//recorre la lista de todos los objetos de la bd
+			System.out.println( lista.size()+"123");
+			if(lista.get(i).getReservado()==2) {//se verifica que no este reservado
+				System.out.println(lista.get(i).getNombre());
 				listaPrestados.add(lista.get(i));//se añade a los prestados
 			}
 		}
@@ -133,12 +136,13 @@ public class ObjetoBL {
 	public void eliminarObjeto(String user,int idObjeto) throws ExceptionController {
 		log.info("Iniciando metodo eliminar objeto");
 		Usuario usuario = usuarioDaoImp.getUsuario(user);
-		if(!usuario.isAdmin()) {//se verifica que sea administrador
+		System.out.println(user);
+		if(usuario.getAdmin()==0) {//se verifica que sea administrador
 			throw new ExceptionController("El usuario no es administrador");
 		}
 		else {
 			Objeto obj = objetoDaoImp.getObjeto(idObjeto);//se obtiene el objeto por su id
-			if(obj != null && obj.isDisponibilidad() && !obj.isReservado()) {//se verifica que no este prestado ni reservado
+			if(obj != null && obj.getDisponibilidad()==2 && obj.getReservado()==2) {//se verifica que no este prestado ni reservado
 				objetoDaoImp.eliminarObjeto(idObjeto);//se elimina el objeto
 			}
 			else {

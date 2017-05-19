@@ -63,7 +63,7 @@ public class UsuarioDaoImp {
 	}
 	
 	//Método para registrar un usuario nuevo en la BD
-	public void registrarUsuario(int id, String nombres, String apellidos, String correo, String usuario, String contrasena, String tipoId, String telefono, boolean admin) throws ExceptionController{
+	public void registrarUsuario(int id, String nombres, String apellidos, String correo, String usuario, String contrasena, String tipoId, String telefono, int admin) throws ExceptionController{
 		if(nombres.isEmpty() || nombres == null) {
 			throw new ExceptionController("El nombre no puede estar vacio");
 		}

@@ -61,16 +61,15 @@ public class ReservaBL {
 			}
 		}
 		List<Sancion> listaSancion = sancionDaoImp.getSanciones();//lista de sanciones
-		for (int j = 0 ; j < lista.size(); j++) {
+		for (int j = 0 ; j < listaSancion.size(); j++) {
 			//se verifica que el usuario no tenga sanciones
-			if(lista.get(j).getUsuario().getUsuario().equals(usuario)) {
-				
+			if(listaSancion.get(j).getUsuario().getUsuario().equals(usuario)) {
 				throw new ExceptionController("El usuario está sancionado.");
 			}
 		}
 		Objeto obj = objetoDaoImp.getObjeto(idObjeto);//se obtiene el objeto
 		//se verifica que el usuario no tenga reservas, que el objeto este disponible, y que la fecha del prestamos no sea mayor a 3 dias
-		if(fechaPrestamo.getTime() >= fechaActual.getTime()+259200000 && cantReservasPorUsuario == 0 && obj.isDisponibilidad()) {
+		if(fechaPrestamo.getTime() >= fechaActual.getTime()+259200000 && cantReservasPorUsuario == 0 && obj.getDisponibilidad()==1) {
 			reservaDaoImp.realizarReserva(usuario, idObjeto, fechaPrestamo);//se realiza la reserva
 		}
 		else {

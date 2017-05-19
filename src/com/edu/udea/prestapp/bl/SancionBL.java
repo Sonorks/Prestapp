@@ -54,13 +54,14 @@ public class SancionBL {
 		Usuario admin = usuarioDaoImp.getUsuario(adm);//Obtiene el usuario admin
 		Usuario user = usuarioDaoImp.getUsuario(usuario);//Obtiene el usuario a sancionar
 		Date inicioSancion = new Date();
-		Date finSancion = null;
+		Date finSancion = new Date();
 		//Verifica si el usuario existe, si el admin existe, y si de verdad es administrador
-		if(user != null && admin != null  && admin.isAdmin()) {
+		if(user != null && admin != null  && admin.getAdmin()==1) {
 			//Sancion para prestamo vencido
 			if(tipoSancion.equals("Prestamo vencido")) {
 				finSancion.setTime(inicioSancion.getTime()+(86400000*7));//Se va a sancionar 7 dias
 				try {
+					System.out.println(usuario+""+ tipoSancion+""+inicioSancion+""+finSancion);
 					sancionDaoImp.sancionarUsuario(usuario, tipoSancion, inicioSancion, finSancion);
 				}catch(Exception e) {
 					throw new ExceptionController("Error creando sancion");
@@ -142,7 +143,7 @@ public class SancionBL {
 		Usuario user = usuarioDaoImp.getUsuario(usuario);
 		String username = usuarioDaoImp.getUsuario(usuario).getUsuario();
 		List<Objeto> listaObjetos = objetoDaoImp.getObjetos();
-		if(user!=null && user.isAdmin()){
+		if(user!=null && user.getAdmin()==1){
 			try {
 				List<Sancion> sanciones = sancionDaoImp.getSanciones();
 				for (int i = 0 ; i < sanciones.size(); i++) {

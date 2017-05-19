@@ -68,7 +68,7 @@ public class UsuarioBL {
 		if(!usuario.getContrasena().equals(password)) {
 			throw new ExceptionController("Credenciales incorrectas");
 		}
-		if(usuario.isAdmin()) {
+		if(usuario.getAdmin()== 1) {
 			return "admin";
 		}
 		return "usuario";
@@ -98,53 +98,73 @@ public class UsuarioBL {
 	public void registrarUsuario(String usuario, String contrasena, String contrasena2, String tipoId, int id, String nombres, String apellidos, String correo, String telefono, String usrAdmin) throws ExceptionController {
 		Usuario usuarioAdmin = usuarioDaoImp.getUsuario(usrAdmin);
 		log.info("Iniciando metodo registrar usuario");
-		if(contrasena.equals(contrasena2)) {
+		
+		if(contrasena.equals(contrasena2) == false ) {
+			
 			return;
 		}
 		for(int i = 0 ; i < usuario.length(); i++) {
 			char c = usuario.charAt(i);
 			if(!Character.isLetterOrDigit(c)) {
+				
 				throw new ExceptionController("El usuario contiene caracteres inválidos");
 			}
+			
 		}
 		for(int i = 0 ; i < contrasena.length(); i++) {
 			char c = contrasena.charAt(i);
 			if(!Character.isLetterOrDigit(c)) {
+				
 				throw new ExceptionController("la contraseña contiene caracteres inválidos");
+				
 			}
+			
 		}
 		for(int i = 0 ; i < tipoId.length(); i++) {
 			char c = tipoId.charAt(i);
 			if(!Character.isLetter(c)) {
+				
 				throw new ExceptionController("El usuario contiene caracteres inválidos");
 			}
+			
 		}
 		List<Usuario> listaUsuarios = usuarioDaoImp.getUsuarios();
+		if(listaUsuarios.isEmpty() == false){
 		for (int i = 0 ; i < listaUsuarios.size(); i ++) {
 			if(listaUsuarios.get(i).getId()== id) {
+				System.out.println("5");
 				throw new ExceptionController("El id ya se encuentra registrado");
 			}
+			
 		}
+		}
+		
+		
 		for(int i = 0 ; i < nombres.length(); i++) {
 			char c = nombres.charAt(i);
 			if(!Character.isLetter(c)) {
 				throw new ExceptionController("El nombre contiene caracteres inválidos");
 			}
+			
 		}
+		
 		for(int i = 0 ; i < apellidos.length(); i++) {
 			char c = apellidos.charAt(i);
 			if(!Character.isLetter(c)) {
 				throw new ExceptionController("El apellido contiene caracteres inválidos");
 			}
+			
 		}
 		for(int i = 0 ; i < telefono.length(); i++) {
 			char c = telefono.charAt(i);
 			if(!Character.isDigit(c)) {
 				throw new ExceptionController("El telefono contiene caracteres inválidos");
 			}
+			
 		}
-		if(usuarioAdmin.isAdmin()) {
-			usuarioDaoImp.registrarUsuario(id, nombres, apellidos, correo, usuario, contrasena, tipoId, telefono, false);
+		if(Integer.parseInt(usrAdmin)==1) {
+			usuarioDaoImp.registrarUsuario(id, nombres, apellidos, correo, usuario, contrasena, tipoId, telefono, Integer.parseInt(usrAdmin));
+			
 		}
 		else {
 			throw new ExceptionController("El usuario que intenta registrar no es administrador");
@@ -167,9 +187,12 @@ public class UsuarioBL {
 			}
 		}
 		List<Usuario> listaUsuarios = usuarioDaoImp.getUsuarios();
-		for (int i = 0 ; i < listaUsuarios.size(); i ++) {
-			if(!(listaUsuarios.get(i).getUsuario()== usuario)) {
+		for (int i = 0 ; i < listaUsuarios.size(); i++) {
+			if(!(listaUsuarios.get(i).getUsuario().equals(usuario))) {
+				
 				throw new ExceptionController("El usuario no se encuentra registrado");
+			}else{
+				i=listaUsuarios.size() + 1 ;
 			}
 		}
 		for(int i = 0 ; i < nombres.length(); i++) {
@@ -190,7 +213,8 @@ public class UsuarioBL {
 				throw new ExceptionController("El telefono contiene caracteres inválidos");
 			}
 		}
-		if(usuarioManipulador.isAdmin() || usuarioManipulador.getUsuario().equals(usuario)) {
+		System.out.println(usuarioManipulador.getAdmin());
+		if(usuarioManipulador.getAdmin()==1) {
 			if(usuarioManipulador.getContrasena().equals(contraseña)) {
 				usuarioDaoImp.modificarUsuario(usuarioManipulador.getId(), usuario, nombres, apellidos, telefono, correo);
 			}
@@ -211,21 +235,27 @@ public class UsuarioBL {
 		}
 		List<Reserva> lista;
 		lista = reservaDaoImp.getReservas();
-		int cantReservasPorUsuario=0;
-		for (int i = 0 ; i < lista.size(); i++) {
-			if(lista.get(i).getUsuario().getId() == user.getId()) {
-				cantReservasPorUsuario++;
-			}
-		}
 		List<Prestamo> listaPrestamo;
 		listaPrestamo = prestamoDaoImp.getPrestamos();
+		System.out.println(lista);
+		System.out.println(listaPrestamo);
+		int cantReservasPorUsuario=0;
 		int cantPrestamosPorUsuario=0;
-		for (int i = 0 ; i < lista.size(); i++) {
-			if(lista.get(i).getUsuario().getId() == user.getId()) {
-				cantPrestamosPorUsuario++;
+		if(lista!=null || listaPrestamo!=null){
+			for (int i = 0 ; i < lista.size(); i++) {
+				if(lista.get(i).getUsuario().getId() == user.getId()) {
+					cantReservasPorUsuario++;
+				}
+			}
+			
+			
+			for (int i = 0 ; i < lista.size(); i++) {
+				if(listaPrestamo.get(i).getId().getUsuario().getId() == user.getId()) {
+					cantPrestamosPorUsuario++;
+				}
 			}
 		}
-		if(user != null && admin.isAdmin() && cantPrestamosPorUsuario == 0 && cantReservasPorUsuario == 0) {
+		if(user != null && admin.getAdmin()==1 && cantPrestamosPorUsuario == 0 && cantReservasPorUsuario == 0) {
 			usuarioDaoImp.eliminarUsuario(user.getId(), usuario);
 		}
 		else {

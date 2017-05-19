@@ -29,7 +29,7 @@
         <property name="telefono" type="java.lang.String">
             <column name="TELEFONO" length="13" not-null="false"/>
         </property>
-        <property name="admin" type="boolean">
+        <property name="admin" type="int">
             <column name="ADMIN" not-null="true"/>
         </property>
     </class>

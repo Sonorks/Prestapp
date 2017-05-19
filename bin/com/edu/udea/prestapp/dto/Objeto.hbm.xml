@@ -5,20 +5,20 @@
 <hibernate-mapping>
     <class name="com.edu.udea.prestapp.dto.Objeto" table="objeto">
         <id name="id" type="int">
-            <column name="ID" />
+            <column name="ID" precision="11"/>
             <generator class="assigned" />
         </id>
         <property name="nombre" type="java.lang.String">
-            <column name="NOMBRE" />
+            <column name="NOMBRE" length="50" not-null="true"/>
         </property>
-        <property name="disponibilidad" type="boolean">
-            <column name="DISPONIBILIDAD" />
+        <property name="disponibilidad" type="int">
+            <column name="DISPONIBILIDAD" not-null="true" precision="1"/>
         </property>
-        <property name="reservado" type="boolean">
-            <column name="RESERVADO" />
+        <property name="reservado" type="int">
+            <column name="RESERVADO" not-null="false" precision="1"/>
         </property>
         <property name="estado" type="java.lang.String">
-            <column name="ESTADO" />
+            <column name="ESTADO" length="50" not-null="true"/>
         </property>
     </class>
 </hibernate-mapping>

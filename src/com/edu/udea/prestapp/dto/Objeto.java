@@ -18,10 +18,13 @@ public class Objeto {
 	//Dispositivo que se presta en el laboratorio
 	private int id;
 	private String nombre;
-	private boolean disponibilidad;
-	private boolean reservado;
+	private int disponibilidad;
+	private int reservado;
 	private String estado;
-	
+		
+	public Objeto(){
+		
+	}
 	public int getId() {
 		return id;
 	}
@@ -34,16 +37,16 @@ public class Objeto {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public boolean isDisponibilidad() {
+	public int getDisponibilidad() {
 		return disponibilidad;
 	}
-	public void setDisponibilidad(boolean disponibilidad) {
+	public void setDisponibilidad(int disponibilidad) {
 		this.disponibilidad = disponibilidad;
 	}
-	public boolean isReservado() {
+	public int getReservado() {
 		return reservado;
 	}
-	public void setReservado(boolean reservado) {
+	public void setReservado(int reservado) {
 		this.reservado = reservado;
 	}
 	public String getEstado() {

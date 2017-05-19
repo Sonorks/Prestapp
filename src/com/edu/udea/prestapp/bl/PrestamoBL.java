@@ -66,7 +66,7 @@ public class PrestamoBL {
 		}
 		if(obj != null && user != null && cantReservasPorUsuario==0) {//se verifica que el objeto a prestar exista
 			//que el usuario exista y que no tenga reservas
-			if(obj.isDisponibilidad()) {//si esta disponible
+			if(obj.getDisponibilidad()==1) {//si esta disponible
 				Date fechaPrestamo = new Date();
 				prestamoDaoImp.realizarPrestamo(usuarioPrestamista, idObjeto, fechaPrestamo);//se realiza el prestamo
 			}
@@ -86,7 +86,7 @@ public class PrestamoBL {
 		Prestamo prestamo = null;
 		Usuario usuario = usuarioDaoImp.getUsuario(user);
 		Date fechaDevolucion = new Date();
-		if(!usuario.isAdmin()) {//se verifica que sea administrador
+		if(usuario.getAdmin() == 1) {//se verifica que sea administrador
 			throw new ExceptionController("El usuario no es administrador");
 		}
 		else {
