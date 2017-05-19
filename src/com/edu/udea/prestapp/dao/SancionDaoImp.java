@@ -22,6 +22,9 @@ import com.edu.udea.prestapp.dao.UsuarioDaoImp;
 import com.edu.udea.prestapp.exception.ExceptionController;
 
 public class SancionDaoImp {
+	@Autowired
+	private UsuarioDaoImp user;
+	
 	private SessionFactory sessionFactory;
 
 	public SessionFactory getSessionFactory() {
@@ -46,7 +49,6 @@ public class SancionDaoImp {
 		if(finSancion == null || finSancion.before(inicioSancion)) {//validando que la fecha sea despues de la fecha de inicio de la sancion
 			throw new ExceptionController("La fecha final no puede estar vacio");
 		}
-		UsuarioDaoImp user = new UsuarioDaoImp(); //se obtiene el usuario por medio del getUsuario
 		Usuario usuarito;
 		usuarito = user.getUsuario(usuario);
 		System.out.println(usuarito);
@@ -70,7 +72,6 @@ public class SancionDaoImp {
 		if(usuario.isEmpty() || usuario == null) {//validando que se reciba el usuario
 			throw new ExceptionController("El usuario no puede estar vacio");
 		}
-		UsuarioDaoImp user = new UsuarioDaoImp(); //se obtiene el usuario por medio del getUsuario
 		if(user.getUsuario(usuario)!=null){//Si el usuario existe ->
 			Usuario sancionado = user.getUsuario(usuario);//Variable para identificar el usuario sancionado
 			Session session = null;
