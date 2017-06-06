@@ -187,14 +187,16 @@ public class UsuarioBL {
 			}
 		}
 		List<Usuario> listaUsuarios = usuarioDaoImp.getUsuarios();
-		
+		boolean encontrado=false;
 		for (int i = 0 ; i < listaUsuarios.size(); i++) {
-			System.out.println(listaUsuarios.get(i)+"   esta es la lista");
-			if(!(listaUsuarios.get(i).getUsuario().equals(usuario))) {
-				throw new ExceptionController("El usuario no se encuentra registrado");
-			}else{
-				i=listaUsuarios.size() + 1 ;
+			System.out.println(listaUsuarios.get(i).getCorreo()+"   esta es la lista");
+			if((listaUsuarios.get(i).getUsuario().equals(usuario))) {
+				encontrado=true;
 			}
+			
+		}
+		if(encontrado==false){
+			throw new ExceptionController("Error al iniciar sesión");
 		}
 		for(int i = 0 ; i < nombres.length(); i++) {
 			char c = nombres.charAt(i);

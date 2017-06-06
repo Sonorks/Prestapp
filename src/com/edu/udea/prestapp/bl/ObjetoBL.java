@@ -63,7 +63,7 @@ public class ObjetoBL {
 		}catch(Exception e){
 			throw new ExceptionController("Error consultando objetos", e);
 		}
-		for (int i = 0; i<=lista.size(); i++) {//Se recorre toda la lista de objetos
+		for (int i = 0; i<lista.size(); i++) {//Se recorre toda la lista de objetos
 			//Se verifica la disonibilidad y si esta funcional
 			if(lista.get(i).getDisponibilidad()==1 && lista.get(i).getReservado()==1 && lista.get(i).getEstado().equals("funcional")) {
 				listaDisponibles.add(lista.get(i));//se agrega a la lista de disponibles
@@ -80,7 +80,7 @@ public class ObjetoBL {
 	//Metodo para modificar la disponibilidad de un objeto
 	public void modificarDisponibilidad(int id, int tipoCambio) throws ExceptionController {
 		log.info("Iniciando metodo modificar disponibilidad con id: "+id+ " y tipoCambio: "+tipoCambio);
-		//tipos de cambio: 1=Disponible, 2=Prestado, 3 = Reservado
+		//tipos de cambio: 1=Disponible, 2=Prestado, 3 = Reservado 4 = cancelar Reserva
 		Objeto obj = null;
 		//Date fecha = new Date();
 		try{
@@ -88,28 +88,28 @@ public class ObjetoBL {
 		}catch(Exception e) {
 			throw new ExceptionController("Error consultando objeto con id "+id,e);//error si no lo encuentra
 		}
-		if(tipoCambio==1 && obj.getDisponibilidad()==1) {//
+		if(tipoCambio==1 && obj.getDisponibilidad()==0) {//
 			/*System.out.println("Cambio tipo 1");*/
 			objetoDaoImp.modificarDisponibilidad(id, tipoCambio);//Se modifica a disponible
 		}
 		/*else {
 			throw new ExceptionController(tipoCambio+ "El objeto ya se encuentra disponible "+obj.isDisponibilidad());
 		}*/
-		else if(tipoCambio==2 && obj.getDisponibilidad()==2) {
+		else if(tipoCambio==2 && obj.getDisponibilidad()==1) {
 			/*System.out.println("Cambio tipo 2");*/
 			objetoDaoImp.modificarDisponibilidad(id, tipoCambio);//se modifica a prestado
 		}
 		/*else {
 			throw new ExceptionController(tipoCambio+ "El objeto ya se encuentra prestado "+obj.isDisponibilidad());
 		}*/
-		else if(tipoCambio==3 && obj.getReservado()==1) {
+		else if(tipoCambio==3 && obj.getReservado()==0) {
 			/*System.out.println("Cambio tipo 3");*/
 			objetoDaoImp.modificarDisponibilidad(id, tipoCambio);//se modifica a reservado
 		}
 		/*else {
 			throw new ExceptionController(tipoCambio+ "El objeto ya se encuentra reservado "+obj.isReservado());
 			}*/
-		else if(tipoCambio==4 && obj.getReservado()==2) {
+		else if(tipoCambio==4 && obj.getReservado()==1) {
 			objetoDaoImp.modificarDisponibilidad(id, tipoCambio);//se modifica a no reservado
 		}
 		else {
@@ -142,7 +142,7 @@ public class ObjetoBL {
 		}
 		else {
 			Objeto obj = objetoDaoImp.getObjeto(idObjeto);//se obtiene el objeto por su id
-			if(obj != null && obj.getDisponibilidad()==2 && obj.getReservado()==2) {//se verifica que no este prestado ni reservado
+			if(obj != null && obj.getDisponibilidad()==1 && obj.getReservado()==0) {//se verifica que no este prestado ni reservado
 				objetoDaoImp.eliminarObjeto(idObjeto);//se elimina el objeto
 			}
 			else {

@@ -73,14 +73,18 @@ public class ObjetoDaoImp implements InterfaceObjetoDao {
 		
 		return lista;
 	}
+	
 	public String modificarDisponibilidad (int id, int tipoCambio) throws ExceptionController{
 		Session session = null;
 		Objeto objeto = getObjeto(id);//Objeto a modificar
 		if(tipoCambio == 1) {//Si el tipoCambio es 1 el objeto será disponible, si es 0 no estará disponible
-			objeto.setDisponibilidad(2);
-		}
-		else if (tipoCambio == 2) {
 			objeto.setDisponibilidad(1);
+		}else if (tipoCambio == 2) {
+			objeto.setDisponibilidad(0);
+		}else if (tipoCambio == 3) {
+			objeto.setReservado(1);
+		}else if (tipoCambio == 4) {
+			objeto.setReservado(0);
 		}
 		try {
 			session = sessionFactory.getCurrentSession(); //para conectarse con el BEAN definido en SpringConf.xml
@@ -90,6 +94,7 @@ public class ObjetoDaoImp implements InterfaceObjetoDao {
 			throw new ExceptionController("Error consultando disponibilidad",e);
 		}
 	}
+	
 	public String eliminarObjeto(int idObjeto) throws ExceptionController{
 		Session session = null;
 		Objeto objeto = getObjeto(idObjeto);//Objeto a eliminar

@@ -86,8 +86,7 @@ public class SancionBL {
 					throw new ExceptionController("Credenciales incorrectas");
 				}
 				
-			}
-			//Sancion para objeto perdido
+			}//Sancion para objeto perdido
 			else if(tipoSancion.equals("Objeto perdido")) {
 				Usuario usuarito = usuarioDaoImp.getUsuario(usuario);//Se obtiene el usuario a sancionar
 				finSancion.setTime(inicioSancion.getTime()+(86400000*7));//Se va a sancionar 7 dias
