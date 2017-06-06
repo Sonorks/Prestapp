@@ -95,7 +95,7 @@ public class UsuarioBL {
 			throw new ExceptionController("Credenciales incorrectas");
 		}
 	}
-	public void registrarUsuario(String usuario, String contrasena, String contrasena2, String tipoId, int id, String nombres, String apellidos, String correo, String telefono, String usrAdmin) throws ExceptionController {
+	public void registrarUsuario(String usuario, String contrasena, String contrasena2, String tipoId, int id, String nombres, String apellidos, String correo, String telefono,int admin, String usrAdmin) throws ExceptionController {
 		Usuario usuarioAdmin = usuarioDaoImp.getUsuario(usrAdmin);
 		log.info("Iniciando metodo registrar usuario");
 		
@@ -162,8 +162,8 @@ public class UsuarioBL {
 			}
 			
 		}
-		if(Integer.parseInt(usrAdmin)==1) {
-			usuarioDaoImp.registrarUsuario(id, nombres, apellidos, correo, usuario, contrasena, tipoId, telefono, Integer.parseInt(usrAdmin));
+		if((usrAdmin)!=null) {
+			usuarioDaoImp.registrarUsuario(id, nombres, apellidos, correo, usuario, contrasena, tipoId, telefono, admin);
 			
 		}
 		else {
@@ -187,9 +187,10 @@ public class UsuarioBL {
 			}
 		}
 		List<Usuario> listaUsuarios = usuarioDaoImp.getUsuarios();
+		
 		for (int i = 0 ; i < listaUsuarios.size(); i++) {
+			System.out.println(listaUsuarios.get(i)+"   esta es la lista");
 			if(!(listaUsuarios.get(i).getUsuario().equals(usuario))) {
-				
 				throw new ExceptionController("El usuario no se encuentra registrado");
 			}else{
 				i=listaUsuarios.size() + 1 ;
@@ -213,7 +214,6 @@ public class UsuarioBL {
 				throw new ExceptionController("El telefono contiene caracteres inválidos");
 			}
 		}
-		System.out.println(usuarioManipulador.getAdmin());
 		if(usuarioManipulador.getAdmin()==1) {
 			if(usuarioManipulador.getContrasena().equals(contraseña)) {
 				usuarioDaoImp.modificarUsuario(usuarioManipulador.getId(), usuario, nombres, apellidos, telefono, correo);
