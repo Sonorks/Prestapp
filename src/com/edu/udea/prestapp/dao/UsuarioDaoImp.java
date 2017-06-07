@@ -1,5 +1,12 @@
 package com.edu.udea.prestapp.dao;
 
+/**
+ * @author Cristian Berrio - cbp453252.hdrl@gmail.com
+ * @author Julian Vasquez - julivas96@gmail.com
+ * @author David Acevedo - davida.acevedo@udea.edu.co
+ * @version = 1.0
+ */
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +29,7 @@ public class UsuarioDaoImp {
 
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
+<<<<<<< HEAD
 	}
 	/*
 	//Método para loguear al usuario
@@ -42,6 +50,9 @@ public class UsuarioDaoImp {
 		}
 	}*/
 	
+=======
+	}	
+>>>>>>> 4a436daf234fce36c7628c52359cd5db8aeeef41
 	//Método que devuelve el usuario segun su nombre de usuario
 	public Usuario getUsuario(String usuario) throws ExceptionController {
 		Session session = null;
@@ -55,7 +66,7 @@ public class UsuarioDaoImp {
 		}catch(HibernateException e){
 			throw new ExceptionController("Error consultando usuario", e);
 		}finally{
-			session.close();
+			//session.close();
 		}
 		return user;
 	}
@@ -70,12 +81,16 @@ public class UsuarioDaoImp {
 		}catch (HibernateException e) {
 			throw new ExceptionController("Error cambiando contraseña",e);
 		}finally {
+<<<<<<< HEAD
 			session.close();
+=======
+			//session.close();
+>>>>>>> 4a436daf234fce36c7628c52359cd5db8aeeef41
 		}
 	}
 	
 	//Método para registrar un usuario nuevo en la BD
-	public void registrarUsuario(int id, String nombres, String apellidos, String correo, String usuario, String contrasena, String tipoId, String telefono, boolean admin) throws ExceptionController{
+	public void registrarUsuario(int id, String nombres, String apellidos, String correo, String usuario, String contrasena, String tipoId, String telefono, int admin) throws ExceptionController{
 		if(nombres.isEmpty() || nombres == null) {
 			throw new ExceptionController("El nombre no puede estar vacio");
 		}
@@ -119,7 +134,7 @@ public class UsuarioDaoImp {
 			}catch (HibernateException e) {
 				throw new ExceptionController("Error guardando usuario",e);
 			}finally {
-				session.close();
+				//session.close();
 			}
 		}
 	}
@@ -154,7 +169,7 @@ public class UsuarioDaoImp {
 			}catch (HibernateException e) {
 				throw new ExceptionController("Error modificando usuario",e);
 			}finally{
-				session.close();
+				//session.close();
 			}
 		}else{
 			throw new ExceptionController("Credenciales incorrectas");
@@ -177,7 +192,7 @@ public class UsuarioDaoImp {
 			}catch(HibernateException e){
 				throw new ExceptionController("Error consultando usuario");
 			}finally{
-				session.close();
+				//session.close();
 			}
 		}else{
 			throw new ExceptionController("Credenciales incorrectas");
@@ -196,7 +211,7 @@ public class UsuarioDaoImp {
 		}catch(HibernateException e){
 			throw new ExceptionController("Error consultando objetos",e);
 		}finally {
-			session.close();
+			//session.close();
 		}
 		return lista;
 	}

@@ -4,22 +4,22 @@
 <!-- Generated Apr 29, 2017 9:34:34 PM by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
     <class name="com.edu.udea.prestapp.dto.Prestamo" table="prestamo">
-	    <composite-id name="id">
-	    	<key-property name="idObjeto" type="int">	
-	    		<column name="idObjeto"></column>
-	    	</key-property>
-	    	<key-property name="idUsuario" type="int">
-	    		<column name="idUsuario"></column>
-	    	</key-property>
+	    <composite-id name="id" class="com.edu.udea.prestapp.dto.PrestamoID">
+	    	<key-many-to-one name="objeto" class="com.edu.udea.prestapp.dto.Objeto">
+	    		<column name="OBJETO" precision="11"></column>
+	    	</key-many-to-one>
+	    	<key-many-to-one name="usuario" class="com.edu.udea.prestapp.dto.Usuario">
+	    		<column name="USUARIO" precision="11"></column>
+	    	</key-many-to-one>
 	    </composite-id>
         <property name="fechaPrestamo" type="java.util.Date">
-            <column name="FECHAPRESTAMO" />
+            <column name="FECHAPRESTAMO" not-null="true"/>
         </property>
         <property name="fechaDevolucion" type="java.util.Date">
-            <column name="FECHADEVOLUCION" />
+            <column name="FECHADEVOLUCION" not-null="true"/>
         </property>
         <property name="fechaReserva" type="java.util.Date">
-            <column name="FECHARESERVA" />
+            <column name="FECHARESERVA" not-null="false"/>
         </property>
     </class>
 </hibernate-mapping>

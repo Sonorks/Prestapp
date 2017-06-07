@@ -5,20 +5,20 @@
 <hibernate-mapping>
     <class name="com.edu.udea.prestapp.dto.Reserva" table="reserva">
         <id name="id" type="int">
-            <column name="ID" />
+            <column name="ID" precision="11"/>
             <generator class="assigned" />
         </id>
-        <property name="idUsuario" type="int">
-            <column name="IDUSUARIO" />
-        </property>
-        <property name="idObjeto" type="int">
-            <column name="IDOBJETO" />
-        </property>
+        <many-to-one class="com.edu.udea.prestapp.dto.Usuario" name="usuario" lazy="proxy" fetch="join">
+        	<column name="IDUSUARIO" not-null="true"></column>
+        </many-to-one>
+        <many-to-one class="com.edu.udea.prestapp.dto.Objeto" name="objeto" lazy="proxy" fetch="join">
+        	<column name="IDOBJETO" not-null="true"></column>
+        </many-to-one>
         <property name="fechaReserva" type="java.util.Date">
-            <column name="FECHARESERVA" />
+            <column name="FECHARESERVA" not-null="true"/>
         </property>
         <property name="fechaPrestamo" type="java.util.Date">
-            <column name="FECHAPRESTAMO" />
+            <column name="FECHAPRESTAMO" not-null="true"/>
         </property>
     </class>
 </hibernate-mapping>

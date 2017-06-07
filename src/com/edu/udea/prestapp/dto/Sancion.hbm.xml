@@ -5,20 +5,20 @@
 <hibernate-mapping>
     <class name="com.edu.udea.prestapp.dto.Sancion" table="sancion">
         <id name="id" type="int">
-            <column name="ID" />
+            <column name="ID" precision="11"/>
             <generator class="assigned" />
         </id>
-        <property name="idUsuario" type="int">
-            <column name="IDUSUARIO" />
-        </property>
+        <many-to-one class="com.edu.udea.prestapp.dto.Usuario" name="usuario" lazy="proxy" fetch="join">
+        	<column name="IDUSUARIO" not-null="true"></column>
+        </many-to-one>
         <property name="tipoSancion" type="java.lang.String">
-            <column name="TIPOSANCION" />
+            <column name="TIPOSANCION" length="45" not-null="true"/>
         </property>
         <property name="inicioSancion" type="java.util.Date">
-            <column name="INICIOSANCION" />
+            <column name="INICIOSANCION" not-null="true"/>
         </property>
         <property name="finSancion" type="java.util.Date">
-            <column name="FINSANCION" />
+            <column name="FINSANCION" not-null="true"/>
         </property>
     </class>
 </hibernate-mapping>

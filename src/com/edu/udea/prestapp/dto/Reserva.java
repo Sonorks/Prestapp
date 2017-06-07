@@ -1,11 +1,25 @@
 package com.edu.udea.prestapp.dto;
 
+/**
+ * @author Cristian Berrio - cbp453252.hdrl@gmail.com
+ * @author Julian Vasquez - julivas96@gmail.com
+ * @author David Acevedo - davida.acevedo@udea.edu.co
+ * @version = 1.0
+ * 
+ * En esta clase se determinan los atributos de Reserva
+ * id se refiere al identificador unico
+ * Usuario es el usuario que realiza la reserva
+ * Objeto es el objeto a reservar
+ * fechaReserva es la fecha en la que se realizó la reserva
+ * fechaPrestamo es la fecha en la que se debe realizar el prestamo solicitado en reserva.
+ */
+
 import java.util.Date;
 
 public class Reserva {
 	private int id;
-	private int idUsuario;
-	private int idObjeto;
+	private Usuario usuario;
+	private Objeto objeto;
 	private Date fechaReserva;
 	private Date fechaPrestamo;
 	
@@ -14,9 +28,9 @@ public class Reserva {
 		
 	}
 	
-	public Reserva(int idUsuario, int idObjeto, Date fechaReserva, Date fechaPrestamo) {
-		this.idUsuario = idUsuario;
-		this.idObjeto = idObjeto;
+	public Reserva(Usuario usuario, Objeto objeto, Date fechaReserva, Date fechaPrestamo) {
+		this.usuario = usuario;
+		this.objeto = objeto;
 		this.fechaReserva = fechaReserva;
 		this.fechaPrestamo = fechaPrestamo;
 	}
@@ -26,18 +40,23 @@ public class Reserva {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getIdUsuario() {
-		return idUsuario;
+	
+	public Usuario getUsuario() {
+		return usuario;
 	}
-	public void setIdUsuario(int idUsuario) {
-		this.idUsuario = idUsuario;
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
-	public int getIdObjeto() {
-		return idObjeto;
+	
+	public Objeto getObjeto() {
+		return objeto;
 	}
-	public void setIdObjeto(int idObjeto) {
-		this.idObjeto = idObjeto;
+
+	public void setObjeto(Objeto objeto) {
+		this.objeto = objeto;
 	}
+
 	public Date getFechaReserva() {
 		return fechaReserva;
 	}
